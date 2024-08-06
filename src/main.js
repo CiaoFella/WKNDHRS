@@ -12,8 +12,16 @@ function cleanupCurrentModule() {
   }
 }
 
+function getBaseUrl() {
+  const script = document.querySelector('script[src*="main.js"]');
+  const scriptSrc = script?.src || '';
+  const baseUrl = scriptSrc.substring(0, scriptSrc.lastIndexOf('/') + 1);
+  return baseUrl + 'pages/';
+}
+
 function loadPageModule(pageName) {
-  import(`./pages/${pageName}.js`)
+  const baseUrl = getBaseUrl();
+  import(/* @vite-ignore */ `${baseUrl}${pageName}.js`)
     .then(module => {
       currentAnimationModule = module.default;
       if (currentAnimationModule.init) {

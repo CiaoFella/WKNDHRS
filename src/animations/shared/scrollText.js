@@ -34,7 +34,7 @@ function init() {
             types: 'lines',
           });
           const headlineDelay = item.dataset.delay || 0;
-          const headlineDuration = item.dataset.duration || 2;
+          const headlineDuration = item.dataset.duration || 1;
 
           let headlineY = 150;
           let mm = gsap.matchMedia();
@@ -51,7 +51,7 @@ function init() {
               y: 0,
               duration: headlineDuration,
               delay: headlineDelay,
-              stagger: 0.15,
+              stagger: 0.05,
               ease: 'expo.out',
             },
             '<+0.1'
@@ -62,7 +62,7 @@ function init() {
       if (text && text.length > 0) {
         text.forEach(item => {
           const textDelay = item.dataset.delay || 0;
-          const textDuration = item.dataset.duration || 2;
+          const textDuration = item.dataset.duration || 1;
 
           const textSplit = new SplitType(item, {
             types: 'lines',
@@ -70,13 +70,13 @@ function init() {
 
           tl.fromTo(
             textSplit.lines,
-            { clipPath: topClipPath, y: 50 },
+            { clipPath: topClipPath, y: 75 },
             {
               clipPath: fullClipPath,
               y: 0,
               duration: textDuration,
               delay: textDelay,
-              stagger: 0.1,
+              stagger: 0.05,
               ease: 'expo.out',
             },
             0

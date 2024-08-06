@@ -13,8 +13,7 @@ function cleanupCurrentModule() {
 }
 
 function loadPageModule(pageName) {
-  const baseUrl = 'https://wkndhrs.netlify.app/pages/';
-  import(`${baseUrl}${pageName}.js`)
+  import(`./pages/${pageName}.js`)
     .then(module => {
       currentAnimationModule = module.default;
       if (currentAnimationModule.init) {

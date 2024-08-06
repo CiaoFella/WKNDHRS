@@ -25,6 +25,7 @@ function loadPageModule(pageName) {
     .then(module => {
       currentAnimationModule = module.default;
       if (currentAnimationModule.init) {
+        console.log(`${baseUrl}${pageName}.js`);
         currentAnimationModule.init();
       }
     })

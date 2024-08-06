@@ -1,6 +1,7 @@
 {
   "name": "gsap-barba-webflow",
   "version": "1.0.0",
+  "type": "module",
   "description": "Webflow starter project with GSAP and Barba.js connected with netlify",
   "scripts": {
     "dev": "vite",
@@ -15,12 +16,13 @@
     "split-type": "^0.3.4"
   },
   "devDependencies": {
-    "@vitejs/plugin-legacy": "^1.6.4",
+    "@vitejs/plugin-legacy": "^5.0.0",
     "eslint": "^8.4.1",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-import": "^2.25.3",
     "eslint-plugin-prettier": "^4.0.0",
     "prettier": "^2.5.1",
-    "vite": "^2.7.2"
+    "vite": "^5.0.0",
+    "vite-plugin-static-copy": "^1.0.6"
   }
 }

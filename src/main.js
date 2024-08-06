@@ -1,9 +1,10 @@
 // main.js
 import barba from './barba';
+import gsap from 'gsap';
+
+gsap.registerPlugin(ScrollTrigger);
 
 let currentAnimationModule = null;
-
-console.log('main.js init');
 
 function cleanupCurrentModule() {
   if (currentAnimationModule && currentAnimationModule.cleanup) {

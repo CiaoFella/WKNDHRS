@@ -1,14 +1,11 @@
-import heroAnimation from '../animations/hero';
-import scrollText from '../animations/shared/scrollText';
+import shared from '../animations/shared';
 
 function init() {
-  console.log('home init');
-  heroAnimation.init();
-  scrollText.init();
+  shared.init();
 }
 
 function cleanup() {
-  heroAnimation.cleanup();
+  shared.cleanup();
 }
 
 export default {

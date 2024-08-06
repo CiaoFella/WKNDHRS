@@ -11,7 +11,8 @@
   },
   "dependencies": {
     "@barba/core": "^2.10.2",
-    "gsap": "^3.9.1"
+    "gsap": "^3.9.1",
+    "split-type": "^0.3.4"
   },
   "devDependencies": {
     "@vitejs/plugin-legacy": "^1.6.4",

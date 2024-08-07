@@ -24,8 +24,8 @@ function loadPageModule(pageName) {
   import(/* @vite-ignore */ `${baseUrl}${pageName}.js`)
     .then(module => {
       currentAnimationModule = module.default;
+      console.log(`${baseUrl}${pageName}.js`);
       if (currentAnimationModule.init) {
-        console.log(`${baseUrl}${pageName}.js`);
         currentAnimationModule.init();
       }
     })

@@ -23,14 +23,19 @@ function loadPageModule(pageName) {
   const baseUrl = getBaseUrl();
   import(/* @vite-ignore */ `${baseUrl}${pageName}.js`)
     .then(module => {
-      currentAnimationModule = module.default;
+      currentAnimationModule = module.default || {};
       console.log(`${baseUrl}${pageName}.js`);
-      if (currentAnimationModule.init) {
+      if (typeof currentAnimationModule.init === 'function') {
         currentAnimationModule.init();
+      } else {
+        console.warn(
+          `Module for page ${pageName} does not have an init function.`
+        );
       }
     })
     .catch(err => {
       console.error(`Failed to load module for page: ${pageName}`, err);
+      currentAnimationModule = {}; // Set to an empty object to avoid further errors
     });
 }
 

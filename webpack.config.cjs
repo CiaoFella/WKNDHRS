@@ -74,7 +74,7 @@ module.exports = {
             comments: false,
           },
           compress: {
-            drop_console: true,
+            drop_console: false,
           },
         },
         extractComments: false,

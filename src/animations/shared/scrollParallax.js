@@ -15,6 +15,7 @@ function init() {
           trigger: section,
           start: 'top top',
           end: 'bottom top',
+          markers: true,
           scrub: 1,
         },
       });

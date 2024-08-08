@@ -1,5 +1,5 @@
 {
-  "name": "gsap-barba-webflow",
+  "name": "wkndhrs",
   "version": "1.0.0",
   "type": "module",
   "description": "Webflow starter project with GSAP and Barba.js connected with netlify",
@@ -12,7 +12,10 @@
   },
   "dependencies": {
     "@barba/core": "^2.10.2",
+    "@rollup/plugin-commonjs": "^26.0.1",
+    "@rollup/plugin-node-resolve": "^15.2.3",
     "gsap": "^3.9.1",
+    "rollup-plugin-terser": "^7.0.2",
     "split-type": "^0.3.4"
   },
   "devDependencies": {
@@ -21,8 +24,9 @@
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-import": "^2.25.3",
     "eslint-plugin-prettier": "^4.0.0",
+    "fs-extra": "^11.2.0",
     "prettier": "^2.5.1",
-    "vite": "^5.0.0",
+    "vite": "^5.3.5",
     "vite-plugin-static-copy": "^1.0.6"
   }
 }

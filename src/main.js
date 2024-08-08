@@ -1,6 +1,4 @@
-// main.js
-import barba from './barba';
-import gsap from 'gsap';
+import { gsap, barba } from './imports';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -16,15 +14,15 @@ function getBaseUrl() {
   const script = document.querySelector('script[src*="main.js"]');
   const scriptSrc = script?.src || '';
   const baseUrl = scriptSrc.substring(0, scriptSrc.lastIndexOf('/') + 1);
-  return baseUrl + 'pages/';
+  return baseUrl;
 }
 
 function loadPageModule(pageName) {
   const baseUrl = getBaseUrl();
-  import(/* @vite-ignore */ `${baseUrl}${pageName}.js`)
+  import(/* @vite-ignore */ `${baseUrl}pages/${pageName}.js`)
     .then(module => {
       currentAnimationModule = module.default || {};
-      console.log(`${baseUrl}${pageName}.js`);
+      console.log(`${baseUrl}pages/${pageName}.js`);
       if (typeof currentAnimationModule.init === 'function') {
         currentAnimationModule.init();
       } else {

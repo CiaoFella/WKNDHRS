@@ -1,12 +1,8 @@
-import gsap from 'gsap';
+import { gsap } from '../imports';
 
 let context;
 
-function init() {
-  context = gsap.context(() => {
-    gsap.from('.hero-element', { duration: 1, opacity: 0, y: -50 });
-  });
-}
+function init() {}
 
 function cleanup() {
   context && context.revert();

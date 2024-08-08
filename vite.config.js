@@ -1,63 +1,70 @@
 import { defineConfig } from 'vite';
 import path from 'path';
-import fs from 'fs';
-import { viteStaticCopy } from 'vite-plugin-static-copy';
-
-// Helper function to get all .js files from a directory
-function getPageEntries(dir) {
-  const entries = {};
-  const files = fs.readdirSync(dir);
-  files.forEach(file => {
-    const fullPath = path.join(dir, file);
-    if (fs.statSync(fullPath).isFile() && file.endsWith('.js')) {
-      const nameWithoutExtension = file.slice(0, -3); // Remove .js extension
-      entries[`pages/${nameWithoutExtension}`] = fullPath;
-    }
-  });
-  return entries;
-}
-
-const pagesDir = path.resolve(__dirname, 'src/pages');
-const pageEntries = getPageEntries(pagesDir);
+import fs from 'fs-extra';
+import { rollup } from 'rollup';
+import resolve from '@rollup/plugin-node-resolve';
+import commonjs from '@rollup/plugin-commonjs';
+import { terser } from 'rollup-plugin-terser';
 
 export default defineConfig({
-  base: '/',
   build: {
-    outDir: 'dist',
+    lib: {
+      entry: path.resolve(__dirname, 'src/main.js'),
+      name: 'MyLibrary',
+      fileName: 'main',
+      formats: ['es'],
+      minify: true,
+    },
     rollupOptions: {
-      input: {
-        main: path.resolve(__dirname, 'src/main.js'),
-        barba: path.resolve(__dirname, 'src/barba.js'),
-        ...pageEntries, // Dynamically include all pages
-      },
+      external: [],
       output: {
-        entryFileNames: '[name].js',
-        chunkFileNames: '[name].js',
-        assetFileNames: '[name].[ext]',
-        manualChunks(id) {
-          if (id.includes('node_modules')) {
-            return 'vendor'; // This will create a separate vendor.js for all node_modules
-          }
-        },
+        entryFileNames: 'src/main.js',
+        globals: {},
       },
+      plugins: [resolve(), commonjs(), terser()],
     },
-  },
-  resolve: {
-    alias: {
-      '@': path.resolve(__dirname, 'src'),
-    },
-  },
-  server: {
-    port: 3000, // Specify the port here
+    outDir: 'dist', // Specify the output directory
   },
   plugins: [
-    viteStaticCopy({
-      targets: [
-        {
-          src: '_headers',
-          dest: '.',
-        },
-      ],
-    }),
+    {
+      name: 'bundle-imports',
+      writeBundle: async () => {
+        const importsPath = path.resolve(__dirname, 'dist/imports.js');
+
+        // Check if imports.js exists and delete it before writing the new one
+        if (fs.existsSync(importsPath)) {
+          await fs.remove(importsPath);
+        }
+
+        const inputOptions = {
+          input: path.resolve(__dirname, 'src/imports.js'),
+          plugins: [resolve(), commonjs(), terser()],
+        };
+        const outputOptions = {
+          format: 'es',
+          file: importsPath,
+        };
+
+        const bundle = await rollup(inputOptions);
+        await bundle.write(outputOptions);
+        await bundle.close();
+      },
+    },
+    {
+      name: 'copy-docs',
+      closeBundle: async () => {
+        const docsSourceDir = path.resolve(__dirname, 'src');
+        const docsDestDir = path.resolve(__dirname, 'dist');
+
+        if (fs.existsSync(docsSourceDir)) {
+          await fs.copy(docsSourceDir, docsDestDir, { overwrite: false });
+          console.log('Src folder copied to dist');
+        } else {
+          console.warn(
+            'no src folder found. Please copy the src folder to the dist folder.'
+          );
+        }
+      },
+    },
   ],
 });

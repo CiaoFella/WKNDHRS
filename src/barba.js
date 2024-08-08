@@ -1,5 +1,4 @@
-import barba from '@barba/core';
-import gsap from 'gsap';
+import { gsap, barba } from './imports';
 
 barba.init({
   transitions: [

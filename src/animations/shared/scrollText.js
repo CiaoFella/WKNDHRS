@@ -1,6 +1,4 @@
-import gsap from 'gsap';
-import ScrollTrigger from 'gsap/ScrollTrigger';
-import SplitType from 'split-type';
+import { gsap, ScrollTrigger, SplitType } from '../../imports';
 import { fullClipPath, topClipPath } from '../../utilities/variables';
 import { unwrapSpanAndPreserveClasses } from '../../utilities/helper';
 

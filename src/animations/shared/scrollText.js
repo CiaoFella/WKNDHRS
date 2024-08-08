@@ -20,6 +20,7 @@ function init() {
 
       ScrollTrigger.create({
         trigger: section,
+        animation: tl,
         start: 'top bottom',
         end: 'top 60%',
         toggleActions: 'none play none reset',

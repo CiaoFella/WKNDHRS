@@ -13,7 +13,6 @@ function init() {
       animation: tl,
       start: 'top top',
       end: 'bottom top',
-      markers: true,
       scrub: 1,
     });
 

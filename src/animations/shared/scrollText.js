@@ -1,4 +1,4 @@
-import { gsap, ScrollTrigger, SplitType } from '../../imports.js';
+import { gsap, ScrollTrigger, SplitType } from '../../vendor.js';
 import { fullClipPath, topClipPath } from '../../utilities/variables.js';
 import { unwrapSpanAndPreserveClasses } from '../../utilities/helper.js';
 

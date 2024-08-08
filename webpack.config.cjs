@@ -1,14 +1,19 @@
 const path = require('path');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
-  entry: './src/index.js',
+  entry: {
+    index: './src/index.js',
+    vendor: './src/vendor.js',
+  },
   output: {
-    filename: 'index.js',
+    filename: '[name].js',
     path: path.resolve(__dirname, 'dist'),
     publicPath: '/',
+    library: '[name]',
+    libraryTarget: 'umd',
   },
   mode: 'production',
   devServer: {
@@ -28,6 +33,18 @@ module.exports = {
           },
         },
       },
+      {
+        test: /\.(png|jpe?g|gif|svg)$/,
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              name: '[path][name].[ext]',
+              context: path.resolve(__dirname, 'src'),
+            },
+          },
+        ],
+      },
     ],
   },
   plugins: [
@@ -36,12 +53,11 @@ module.exports = {
       patterns: [
         {
           from: 'src',
-          to: '',
+          globOptions: {
+            ignore: ['**/index.js', '**/vendor.js'],
+          },
         },
-        {
-          from: '_headers',
-          to: '',
-        },
+        { from: '_headers', to: '' },
       ],
     }),
   ],
@@ -61,7 +77,7 @@ module.exports = {
       }),
     ],
     splitChunks: {
-      chunks: 'async', // This ensures only dynamically imported modules are split
+      chunks: 'all',
     },
   },
 };

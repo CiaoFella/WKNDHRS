@@ -1,4 +1,4 @@
-import { gsap, barba } from './imports.js';
+import { gsap, barba } from './vendor.js';
 
 gsap.registerPlugin(ScrollTrigger);
 

@@ -1,4 +1,4 @@
-import { gsap } from '../../imports.js';
+import { gsap, ScrollTrigger } from '../../vendor';
 
 let ctx;
 

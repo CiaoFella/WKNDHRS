@@ -12,8 +12,12 @@ module.exports = {
     filename: '[name].js',
     path: path.resolve(__dirname, 'dist'),
     publicPath: '/',
-    library: '[name]',
-    libraryTarget: 'umd',
+    library: {
+      type: 'module', // Ensure vendor.js is output as an ES module
+    },
+  },
+  experiments: {
+    outputModule: true, // Enable Webpack's module output support
   },
   mode: 'production',
   devServer: {
@@ -77,7 +81,14 @@ module.exports = {
       }),
     ],
     splitChunks: {
-      chunks: 'all',
+      cacheGroups: {
+        vendor: {
+          test: /[\\/]node_modules[\\/]/,
+          name: 'vendor',
+          chunks: 'all',
+          enforce: true,
+        },
+      },
     },
   },
 };

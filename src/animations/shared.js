@@ -1,5 +1,5 @@
-import scrollLogo from './shared/scrollLogo';
-import scrollParallax from './shared/scrollParallax';
+import scrollLogo from './shared/scrollLogo.js';
+import scrollParallax from './shared/scrollParallax.js';
 
 function init() {
   scrollLogo.init();

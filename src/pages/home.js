@@ -1,5 +1,5 @@
-import shared from '../animations/shared';
-import scrollText from '../animations/shared/scrollText';
+import shared from '../animations/shared.js';
+import scrollText from '../animations/shared/scrollText.js';
 
 function init() {
   scrollText.init();

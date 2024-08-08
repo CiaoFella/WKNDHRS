@@ -19,7 +19,7 @@ function getBaseUrl() {
 
 function loadPageModule(pageName) {
   const baseUrl = getBaseUrl();
-  import(/* @vite-ignore */ `${baseUrl}pages/${pageName}.js`)
+  import(/* webpackIgnore: true */ `${baseUrl}pages/${pageName}.js`)
     .then(module => {
       currentAnimationModule = module.default || {};
       console.log(`${baseUrl}pages/${pageName}.js`);

@@ -4,9 +4,8 @@
   "type": "module",
   "description": "Webflow starter project with GSAP and Barba.js connected with netlify",
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "serve": "vite preview",
+    "build": "webpack --config webpack.config.cjs",
+    "start": "webpack-dev-server --config webpack.config.cjs",
     "lint": "eslint 'src/**/*.{js,ts}' --quiet",
     "format": "prettier --write 'src/**/*.{js,ts,css}'"
   },
@@ -14,19 +13,28 @@
     "@barba/core": "^2.10.2",
     "@rollup/plugin-commonjs": "^26.0.1",
     "@rollup/plugin-node-resolve": "^15.2.3",
+    "clean-webpack-plugin": "^4.0.0",
+    "file-loader": "^6.2.0",
     "gsap": "^3.9.1",
     "rollup-plugin-terser": "^7.0.2",
-    "split-type": "^0.3.4"
+    "split-type": "^0.3.4",
+    "webpack": "^5.93.0"
   },
   "devDependencies": {
+    "@babel/core": "^7.25.2",
+    "@babel/preset-env": "^7.25.3",
     "@vitejs/plugin-legacy": "^5.0.0",
+    "babel-loader": "^9.1.3",
+    "copy-webpack-plugin": "^12.0.2",
     "eslint": "^8.4.1",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-import": "^2.25.3",
     "eslint-plugin-prettier": "^4.0.0",
     "fs-extra": "^11.2.0",
     "prettier": "^2.5.1",
+    "terser-webpack-plugin": "^5.3.10",
     "vite": "^5.3.5",
-    "vite-plugin-static-copy": "^1.0.6"
+    "vite-plugin-static-copy": "^1.0.6",
+    "webpack-cli": "^5.1.4"
   }
 }

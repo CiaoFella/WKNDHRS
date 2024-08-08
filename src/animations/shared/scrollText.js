@@ -1,6 +1,6 @@
-import { gsap, ScrollTrigger, SplitType } from '../../imports';
-import { fullClipPath, topClipPath } from '../../utilities/variables';
-import { unwrapSpanAndPreserveClasses } from '../../utilities/helper';
+import { gsap, ScrollTrigger, SplitType } from '../../imports.js';
+import { fullClipPath, topClipPath } from '../../utilities/variables.js';
+import { unwrapSpanAndPreserveClasses } from '../../utilities/helper.js';
 
 gsap.registerPlugin(ScrollTrigger);
 

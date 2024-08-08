@@ -1,4 +1,4 @@
-import { gsap } from '../imports';
+import { gsap } from '../imports.js';
 
 let context;
 

@@ -51,10 +51,12 @@ export default defineConfig({
       },
     },
     {
-      name: 'copy-docs',
+      name: 'copy-files',
       closeBundle: async () => {
         const docsSourceDir = path.resolve(__dirname, 'src');
         const docsDestDir = path.resolve(__dirname, 'dist');
+        const headersFileSource = path.resolve(__dirname, '_headers');
+        const headersFileDest = path.resolve(__dirname, 'dist/_headers');
 
         if (fs.existsSync(docsSourceDir)) {
           await fs.copy(docsSourceDir, docsDestDir, { overwrite: false });
@@ -62,6 +64,17 @@ export default defineConfig({
         } else {
           console.warn(
             'no src folder found. Please copy the src folder to the dist folder.'
+          );
+        }
+
+        if (fs.existsSync(headersFileSource)) {
+          await fs.copy(headersFileSource, headersFileDest, {
+            overwrite: false,
+          });
+          console.log('Headers file copied to dist');
+        } else {
+          console.warn(
+            'no headers file found. Please copy the headers file to the dist folder.'
           );
         }
       },

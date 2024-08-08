@@ -16,13 +16,13 @@ function init() {
       const headline = section.querySelectorAll('[data-scroll-text=headline]');
       const text = section.querySelectorAll('[data-scroll-text=text]');
 
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: section,
-          start: 'top bottom',
-          end: 'top 60%',
-          toggleActions: 'none play none reset',
-        },
+      const tl = gsap.timeline();
+
+      ScrollTrigger.create({
+        trigger: section,
+        start: 'top bottom',
+        end: 'top 60%',
+        toggleActions: 'none play none reset',
       });
 
       if (headline && headline.length > 0) {

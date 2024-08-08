@@ -10,14 +10,14 @@ function init() {
       '[data-scroll-parallax=parallax]'
     );
     ctx = gsap.context(() => {
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: section,
-          start: 'top top',
-          end: 'bottom top',
-          markers: true,
-          scrub: 1,
-        },
+      const tl = gsap.timeline();
+
+      ScrollTrigger.create({
+        animation: tl,
+        trigger: section,
+        start: 'top top',
+        end: 'bottom top',
+        scrub: 1,
       });
 
       if (parallax && parallax.length > 0) {

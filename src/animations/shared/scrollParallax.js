@@ -15,7 +15,7 @@ function init() {
       ScrollTrigger.create({
         animation: tl,
         trigger: section,
-        start: 'top top',
+        start: 'top bottom',
         end: 'bottom top',
         scrub: 1,
       });
@@ -25,10 +25,10 @@ function init() {
           tl.fromTo(
             item,
             {
-              y: -5,
+              yPercent: -5,
             },
             {
-              y: 5,
+              yPercent: 5,
               duration: 1,
               ease: 'none',
             }

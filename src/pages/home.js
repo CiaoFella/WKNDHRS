@@ -1,14 +1,14 @@
 import shared from '../animations/shared.js';
-import scrollText from '../animations/shared/scrollText.js';
+import scrollLogo from '../animations/scrollLogo.js';
 
 function init() {
   console.log('home init');
-  scrollText.init();
+  scrollLogo.init();
   shared.init();
 }
 
 function cleanup() {
-  scrollText.init();
+  scrollLogo.cleanup();
   shared.cleanup();
 }
 

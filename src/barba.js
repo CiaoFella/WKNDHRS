@@ -1,20 +1,24 @@
+import { fullClipPath, topClipPath } from './utilities/variables.js';
 import { gsap, barba } from './vendor.js';
 
 barba.init({
   transitions: [
     {
       name: 'default-transition',
-      leave(data) {
-        let done = this.async();
-        gsap.to(data.current.container, {
+      async leave(data) {
+        await gsap.to(data.current.container, {
           opacity: 0,
           onComplete: done,
         });
       },
       enter(data) {
-        gsap.from(data.next.container, {
-          opacity: 0,
-        });
+        gsap.fromTo(
+          data.next.container,
+          {
+            clipPath: topClipPath,
+          },
+          { clipPath: fullClipPath, duration: 1 }
+        );
       },
     },
   ],

@@ -25,10 +25,12 @@ function init() {
           tl.fromTo(
             item,
             {
-              y: 0,
+              y: -5,
             },
             {
-              y: '100%',
+              y: 5,
+              duration: 1,
+              ease: 'none',
             }
           );
         });

@@ -2,12 +2,18 @@ import { fullClipPath, topClipPath } from './utilities/variables.js';
 import { gsap, barba } from './vendor.js';
 
 barba.init({
+  preventRunning: true,
   transitions: [
     {
       name: 'default-transition',
-      async leave(data) {
-        await gsap.to(data.current.container, {
-          opacity: 0,
+      leave(data) {
+        let done = this.async();
+        gsap.to(data.current.container, {
+          opacity: 0.2,
+          duration: 0.25,
+          yPercent: 1,
+          ease: 'none',
+          force3D: true,
           onComplete: done,
         });
       },
@@ -16,8 +22,18 @@ barba.init({
           data.next.container,
           {
             clipPath: topClipPath,
+            height: 0,
           },
-          { clipPath: fullClipPath, duration: 1 }
+          {
+            clipPath: fullClipPath,
+            height: '100vh',
+            duration: 1.5,
+            ease: 'expo.out',
+
+            onComplete: () => {
+              gsap.set(data.next.container, { height: 'auto' });
+            },
+          }
         );
       },
     },

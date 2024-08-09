@@ -69,13 +69,13 @@ function init() {
 
           tl.fromTo(
             textSplit.lines,
-            { clipPath: topClipPath, y: 75 },
+            { clipPath: topClipPath, y: 50 },
             {
               clipPath: fullClipPath,
               y: 0,
               duration: textDuration,
               delay: textDelay,
-              stagger: 0.025,
+              stagger: 0.05,
               ease: 'expo.out',
             },
             0

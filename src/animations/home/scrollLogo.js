@@ -12,7 +12,7 @@ function init() {
       trigger: section,
       animation: tl,
       start: 'top top',
-      end: 'bottom top',
+      end: 'bottom bottom',
       scrub: 1,
     });
 

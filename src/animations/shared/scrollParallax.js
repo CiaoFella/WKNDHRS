@@ -22,6 +22,7 @@ function init() {
 
       if (parallax && parallax.length > 0) {
         parallax.forEach(item => {
+          tl.set(item, { scaleY: 1.1 });
           tl.fromTo(
             item,
             {
@@ -33,7 +34,7 @@ function init() {
               ease: 'none',
             }
           );
-        });
+        }, 0);
       }
     });
   }

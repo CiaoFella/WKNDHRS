@@ -75,7 +75,7 @@ function init() {
               y: 0,
               duration: textDuration,
               delay: textDelay,
-              stagger: 0.05,
+              stagger: 0.025,
               ease: 'expo.out',
             },
             0

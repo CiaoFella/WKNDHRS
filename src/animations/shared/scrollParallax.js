@@ -14,7 +14,6 @@ function init() {
           const parallax = item.querySelectorAll(
             '[data-scroll-parallax=parallax]'
           );
-          console.log(parallax);
 
           const scrollTl = gsap.timeline();
 

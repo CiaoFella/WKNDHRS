@@ -17,7 +17,6 @@ const scroll = () => {
       end: `+=${items.length * 100}%`,
       scrub: true,
       pin: true,
-      // markers: true,
     },
     defaults: { ease: 'none' },
   });

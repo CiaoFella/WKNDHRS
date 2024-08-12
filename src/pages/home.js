@@ -1,6 +1,6 @@
 import shared from '../animations/shared.js';
 import scrollLogo from '../animations/home/scrollLogo.js';
-import scrollService from '../animations/home/scrollService.js';
+import scrollService from '../animations/home/scrollHeadlineStagger.js';
 import scrollVisual from '../animations/general/scrollVisual.js';
 import scrollSelectedWork from '../animations/scrollSelectedWork.js';
 

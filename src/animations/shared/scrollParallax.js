@@ -7,7 +7,6 @@ function init() {
 
   if (section) {
     const wraps = section.querySelectorAll('[data-scroll-parallax=wrap]');
-
     ctx = gsap.context(() => {
       if (wraps && wraps.length > 0) {
         wraps.forEach(item => {

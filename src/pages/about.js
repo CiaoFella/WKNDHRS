@@ -1,12 +1,20 @@
-import heroAnimation from '../animations/hero.js';
+import scrollAboutService from '../animations/about/scrollAboutService.js';
+import scrollApproach from '../animations/about/scrollApproach.js';
+import scrollHeadlineStagger from '../animations/home/scrollHeadlineStagger.js';
+import shared from '../animations/shared.js';
 
 function init() {
-  console.log('about init');
-  heroAnimation.init();
+  scrollAboutService.init();
+  scrollApproach.init();
+  scrollHeadlineStagger.init();
+  shared.init();
 }
 
 function cleanup() {
-  heroAnimation.cleanup();
+  scrollAboutService.cleanup();
+  scrollApproach.cleanup();
+  scrollHeadlineStagger.cleanup();
+  shared.cleanup();
 }
 
 export default {

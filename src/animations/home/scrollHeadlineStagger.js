@@ -3,9 +3,13 @@ import { gsap, ScrollTrigger } from '../../vendor.js';
 let context;
 
 function init() {
-  const section = document.querySelector('[data-animate-service=section]');
+  const section = document.querySelector(
+    '[data-scroll-headline-stagger=section]'
+  );
   if (section) {
-    const items = section.querySelectorAll('[data-animate-service=item]');
+    const items = section.querySelectorAll(
+      '[data-scroll-headline-stagger=item]'
+    );
     context = gsap.context(() => {
       const tl = gsap.timeline();
 

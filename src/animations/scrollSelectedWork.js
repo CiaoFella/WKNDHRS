@@ -10,19 +10,19 @@ function init() {
     const items = section.querySelectorAll('[data-scroll-selected-work=item]');
     const list = section.querySelector('[data-scroll-selected-work=list]');
 
-    const scrubTl = gsap.timeline();
-
-    ScrollTrigger.create({
-      trigger: section,
-      animation: scrubTl,
-      start: 'top center',
-      end: 'top top',
-      scrub: 1,
-    });
-
-    scrubTl.to(list, { scale: 0.95, duration: 1 });
-
     ctx = gsap.context(() => {
+      const scrubTl = gsap.timeline();
+
+      ScrollTrigger.create({
+        trigger: section,
+        animation: scrubTl,
+        start: 'top center',
+        end: 'top top',
+        scrub: 1,
+      });
+
+      scrubTl.to(list, { scale: 0.95, duration: 1 });
+
       items.forEach((item, index) => {
         const headline = item.querySelector(
           '[data-scroll-selected-work=headline]'
@@ -96,15 +96,16 @@ function init() {
           const prevCategory = items[index - 1].querySelector(
             '[data-scroll-selected-work=category]'
           );
-          const previousItem = items[index - 1];
           revealTl
             .to(prevHeadline, { yPercent: -100, ease: 'expo.inOut' }, '<')
             .to(prevCategory, { yPercent: -100, ease: 'expo.inOut' }, '<');
         }
 
+        const triggerHeight = section.offsetHeight / items.length;
+
         ScrollTrigger.create({
           trigger: section,
-          start: () => `${index * window.innerHeight} top`,
+          start: () => `${index * triggerHeight} top`,
           end: 'bottom bottom',
           onEnter: () => {
             revealTl.play();

@@ -1,5 +1,4 @@
 import {
-  bottomClipPath,
   fullClipPath,
   leftClipPath,
   topClipPath,

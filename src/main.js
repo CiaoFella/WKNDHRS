@@ -1,7 +1,9 @@
 import { gsap, ScrollTrigger } from './vendor.js';
 import barba from './barba.js';
+import menu from './animations/general/menu.js';
 
 gsap.registerPlugin(ScrollTrigger);
+menu.init();
 
 let currentAnimationModule = null;
 

@@ -1,6 +1,8 @@
 import { gsap, ScrollTrigger } from './vendor.js';
 import barba from './barba.js';
 import menu from './animations/general/menu.js';
+import pageLoader from './animations/general/pageLoader.js';
+import { normalizeLogo } from './utilities/helper.js';
 
 gsap.registerPlugin(ScrollTrigger);
 menu.init();
@@ -44,6 +46,7 @@ function loadPageModule(pageName) {
 const initialPageName = document.querySelector('[data-barba="container"]')
   .dataset.barbaNamespace;
 loadPageModule(initialPageName);
+pageLoader.init(initialPageName);
 
 barba.hooks.beforeEnter(({ next }) => {
   cleanupCurrentModule();
@@ -51,5 +54,6 @@ barba.hooks.beforeEnter(({ next }) => {
 
 barba.hooks.after(({ next }) => {
   const pageName = next.namespace;
+  normalizeLogo(pageName);
   loadPageModule(pageName);
 });

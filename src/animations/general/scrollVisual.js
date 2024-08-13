@@ -20,7 +20,6 @@ function init() {
 
       items.forEach(item => {
         const animationType = item.dataset.type;
-        console.log(animationType);
         ctx = gsap.context(() => {
           switch (animationType) {
             case 'clip-bottom':

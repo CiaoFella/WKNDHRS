@@ -6,7 +6,6 @@ import scrollSelectedWork from '../animations/scrollSelectedWork.js';
 import pageLoader from '../animations/general/pageLoader.js';
 
 function init() {
-  console.log('home init');
   pageLoader.init();
   scrollLogo.init();
   scrollVisual.init();

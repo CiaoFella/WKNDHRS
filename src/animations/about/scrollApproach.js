@@ -60,8 +60,6 @@ function init() {
           type: 'lines',
         });
 
-        console.log(numbers[index]);
-
         gsap.set(headlineSplit.lines, { yPercent: 200 });
         gsap.set([numbers, zero], { yPercent: 100 });
         listEnterTl

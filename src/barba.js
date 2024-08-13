@@ -9,9 +9,11 @@ barba.init({
       leave(data) {
         let done = this.async();
         gsap.to(data.current.container, {
-          opacity: 0.2,
-          duration: 0.25,
-          yPercent: 1,
+          opacity: 0.5,
+          duration: 0.4,
+          scaleY: 0.99,
+          scaleX: 0.97,
+          transformOrigin: '50% 50%',
           ease: 'none',
           force3D: true,
           onComplete: done,
@@ -27,9 +29,9 @@ barba.init({
           {
             clipPath: fullClipPath,
             height: '100vh',
-            duration: 1.5,
+            duration: 1,
+            delay: 0.1,
             ease: 'expo.out',
-
             onComplete: () => {
               gsap.set(data.next.container, { height: 'auto' });
             },

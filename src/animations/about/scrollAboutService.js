@@ -57,7 +57,8 @@ function init() {
             {
               clipPath: fullClipPath,
               yPercent: 0,
-              stagger: { each: 0.1, ease: 'power3.in' },
+              duration: 1,
+              stagger: { each: 0.05, ease: 'power1.in' },
             },
             '<'
           );

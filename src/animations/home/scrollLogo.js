@@ -2,9 +2,10 @@ import { gsap, ScrollTrigger } from '../../vendor.js';
 
 let ctx;
 
-function init() {
+function init(namespace) {
   const section = document.querySelector('[data-scroll-nav-logo=section]');
-  const logo = document.querySelector('[data-scroll-nav-logo=logo]');
+  const logo = document.querySelector('[data-logo=wrap]');
+  console.log(logo);
   ctx = gsap.context(() => {
     const tl = gsap.timeline();
 
@@ -16,8 +17,8 @@ function init() {
       scrub: 1,
     });
 
-    tl.from(logo, {
-      width: '60%',
+    tl.to(logo, {
+      fontSize: '2rem',
       duration: 1,
     });
   });

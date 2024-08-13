@@ -1,9 +1,9 @@
-import { fullClipPath, rightSideClipPath } from '../../utilities/variables.js';
+import { normalizeLogo } from '../../utilities/helper.js';
 import { gsap } from '../../vendor.js';
 
 let ctx;
 
-function init() {
+function init(namespace) {
   const section = document.querySelector('[data-page-loader=section]');
 
   if (section) {
@@ -13,33 +13,32 @@ function init() {
       const hideLetters = document.querySelectorAll('[data-hide=letter-wrap]');
       const element = section.querySelectorAll('[data-page-loader=element]');
       const bg = section.querySelector('[data-page-loader=bg]');
+      const logo = document.querySelector('[data-logo=wrap]');
 
-      const tl = gsap.timeline({
-        paused: true,
-        defaults: { duration: 1, ease: 'expo.out' },
-      });
+      const tl = gsap.timeline({ paused: true, defaults: { duration: 1, ease: 'expo.out' } });
+
+      tl.set(section, { display: 'flex' });
+
+      console.log(namespace);
+
+      tl.set(logo, { fontSize: '9vw' });
 
       tl.to(hideLetters, {
         opacity: 0,
         duration: 2,
-        stagger: { from: 'random', amount: 0.05 },
+        stagger: { from: 'random', amount: 0.1 },
       })
-        .fromTo(
-          hideLetters,
-          { width: '100%' },
-          {
-            width: '0%',
-            duration: 3,
-            ease: 'expo.inOut',
+        .fromTo(hideLetters, { width: '100%' }, { width: '0%', duration: 2, ease: 'expo.out' }, '<+15%')
+        .to(element, { yPercent: -100, duration: 1 }, '>-15%')
+        .call(
+          () => {
+            normalizeLogo(namespace);
           },
+          [],
           '<'
         )
-        .to(element, { yPercent: -100, duration: 1 })
-        .to(
-          bg,
-          { scaleY: '0', duration: 2, transformOrigin: '50% 0%' },
-          '<+35%'
-        )
+        .to(bg, { scaleY: '0', duration: 1, transformOrigin: '50% 0%' }, '<+35%')
+
         .to(section, { display: 'none', duration: 0 });
 
       tl.play();

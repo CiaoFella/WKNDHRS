@@ -21,6 +21,7 @@ function init() {
       '[data-scroll-approach=headline]'
     );
     const numbers = section.querySelectorAll('[data-scroll-approach=number]');
+    const zero = section.querySelector('[data-scroll-approach=number-zero]');
     const visuals = section.querySelectorAll('[data-scroll-approach=visual]');
 
     ctx = gsap.context(() => {
@@ -32,7 +33,7 @@ function init() {
         trigger: section,
         animation: mainTl,
         start: 'top bottom',
-        end: 'top 75%',
+        end: 'top center',
         toggleActions: 'none play none reset',
       });
 
@@ -50,13 +51,52 @@ function init() {
         const listScrubTl = gsap.timeline({
           defaults: { duration: 1, ease: 'expo.inOut' },
         });
+        const listEnterTl = gsap.timeline({
+          defaults: { duration: 1, ease: 'expo.inOut' },
+          paused: true,
+        });
 
-        const headlineSplit = new SplitType(headlines, {
+        const headlineSplit = new SplitType(headlines[index], {
           type: 'lines',
         });
-        const lines = headlines[index].querySelectorAll('.line');
 
-        listScrubTl.set([headlineSplit.lines, numbers], { yPercent: 200 });
+        console.log(numbers[index]);
+
+        gsap.set(headlineSplit.lines, { yPercent: 200 });
+        gsap.set([numbers, zero], { yPercent: 100 });
+        listEnterTl
+          .to(
+            headlineSplit.lines,
+            {
+              yPercent: 0,
+              stagger: 0.1,
+            },
+            '<+0.2'
+          )
+          .to(
+            numbers[index],
+            {
+              yPercent: 0,
+            },
+            '<'
+          );
+
+        if (index === 0) {
+          listEnterTl.to(zero, { yPercent: 0 }, 0);
+        }
+
+        if (index > 0) {
+          const prevHeadlineLines =
+            headlines[index - 1].querySelectorAll('.line');
+          const prevNumber = numbers[index - 1];
+
+          listEnterTl.to(
+            prevHeadlineLines,
+            { yPercent: -200, stagger: 0.1 },
+            0
+          );
+          listEnterTl.to(prevNumber, { yPercent: -100 }, '<');
+        }
 
         ScrollTrigger.create({
           trigger: list,
@@ -65,11 +105,10 @@ function init() {
           end: 'top top',
           scrub: 1,
           onEnter: () => {
-            listScrubTl
-              .to(lines, { yPercent: 0, stagger: 0.1 })
-              .to(numbers[index], {
-                yPercent: 0,
-              });
+            listEnterTl.play();
+          },
+          onLeaveBack: () => {
+            listEnterTl.reverse();
           },
         });
 

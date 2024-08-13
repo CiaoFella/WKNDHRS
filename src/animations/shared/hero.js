@@ -19,7 +19,7 @@ function init() {
           trigger: section,
           animation: homeTl,
           start: 'top top',
-          end: 'center bottom',
+          end: '75% bottom',
           scrub: true,
         });
 
@@ -30,8 +30,7 @@ function init() {
           },
           {
             scaleY: 1,
-            duration: 0.5,
-            delay: 0.5,
+            duration: 1,
             ease: 'none',
           }
         );

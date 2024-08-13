@@ -21,7 +21,7 @@ function init() {
 
       tl.set(section, { display: 'flex' });
 
-      tl.to(triggerItems, { yPercent: -100 })
+      tl.to(triggerItems, { yPercent: -100, duration: 0.5 })
         .from(
           bg,
           {

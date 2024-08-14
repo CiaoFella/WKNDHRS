@@ -2,7 +2,7 @@ import { gsap, ScrollTrigger } from './vendor.js'
 import barba from './barba.js'
 import menu from './animations/general/menu.js'
 import pageLoader from './animations/general/pageLoader.js'
-import { normalizeLogo } from './utilities/helper.js'
+import { autoPlayVideosInView, normalizeLogo } from './utilities/helper.js'
 import { enterPageAnimation } from './animations/general/enterPageAnimation.js'
 import createSplitTypes from './utilities/createSplitTypes.js'
 import lenis from './utilities/smoothScroll.js'
@@ -64,6 +64,7 @@ barba.hooks.beforeEnter(({ next }) => {
 barba.hooks.after(({ next }) => {
   const pageName = next.namespace
   lenis.scrollTo(0, { duration: 0, immediate: true })
+  autoPlayVideosInView()
   normalizeLogo(pageName)
   loadPageModule(pageName)
   createSplitTypes.init()

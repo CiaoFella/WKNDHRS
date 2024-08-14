@@ -1,4 +1,4 @@
-import { gsap } from '../vendor.js'
+import { gsap, ScrollTrigger } from '../vendor.js'
 
 export function unwrapSpanAndPreserveClasses(element) {
   // Select all span elements inside the given element
@@ -60,4 +60,20 @@ export function closeMenu() {
   if (menuTrigger.classList.contains('is-active')) {
     menuTrigger.click()
   }
+}
+
+export function autoPlayVideosInView() {
+  const vids = document.querySelectorAll('video')
+  vids.forEach(vid => {
+    ScrollTrigger.create({
+      trigger: vid,
+      start: 'top bottom',
+      onEnter: () => {
+        const playPromise = vid.play()
+        if (playPromise !== undefined) {
+          playPromise.catch(error => {})
+        }
+      },
+    })
+  })
 }

@@ -1,5 +1,5 @@
 import { gsap, ScrollTrigger, SplitType } from '../../vendor.js'
-import { fullClipPath, topClipPath } from '../../utilities/variables.js'
+import { fullClipPath, isTablet, topClipPath } from '../../utilities/variables.js'
 import { unwrapSpanAndPreserveClasses } from '../../utilities/helper.js'
 
 gsap.registerPlugin(ScrollTrigger)
@@ -36,7 +36,7 @@ function init() {
           let headlineY = 150
           let mm = gsap.matchMedia()
 
-          mm.add('(max-width: 991px)', () => {
+          mm.add(isTablet, () => {
             headlineY = 75
           })
 

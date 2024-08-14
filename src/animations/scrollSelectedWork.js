@@ -74,7 +74,7 @@ function init() {
 
         ScrollTrigger.create({
           trigger: section,
-          start: () => `${index * triggerHeight} center%`,
+          start: () => `${index * triggerHeight} center`,
           end: 'bottom bottom',
           onEnter: () => {
             revealTl.play()

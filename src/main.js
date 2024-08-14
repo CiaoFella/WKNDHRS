@@ -3,6 +3,8 @@ import barba from './barba.js';
 import menu from './animations/general/menu.js';
 import pageLoader from './animations/general/pageLoader.js';
 import { normalizeLogo } from './utilities/helper.js';
+import { enterPageAnimation } from './animations/general/enterPageAnimation.js';
+import createSplitTypes from './utilities/createSplitTypes.js';
 
 gsap.registerPlugin(ScrollTrigger);
 menu.init();
@@ -31,9 +33,7 @@ function loadPageModule(pageName) {
       if (typeof currentAnimationModule.init === 'function') {
         currentAnimationModule.init();
       } else {
-        console.warn(
-          `Module for page ${pageName} does not have an init function.`
-        );
+        console.warn(`Module for page ${pageName} does not have an init function.`);
       }
     })
     .catch(err => {
@@ -43,10 +43,16 @@ function loadPageModule(pageName) {
 }
 
 // Load the initial page module
-const initialPageName = document.querySelector('[data-barba="container"]')
-  .dataset.barbaNamespace;
+const initialPageName = document.querySelector('[data-barba="container"]').dataset.barbaNamespace;
 loadPageModule(initialPageName);
 pageLoader.init(initialPageName);
+createSplitTypes.init();
+
+document.addEventListener('onPageReady', event => {
+  if (event.detail === true) {
+    enterPageAnimation().play();
+  }
+});
 
 barba.hooks.beforeEnter(({ next }) => {
   cleanupCurrentModule();
@@ -56,4 +62,5 @@ barba.hooks.after(({ next }) => {
   const pageName = next.namespace;
   normalizeLogo(pageName);
   loadPageModule(pageName);
+  createSplitTypes.init();
 });

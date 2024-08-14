@@ -1,20 +1,18 @@
-import { gsap, ScrollTrigger } from '../../vendor.js';
+import { gsap, ScrollTrigger } from '../../vendor.js'
 
-let ctx;
+let ctx
 
 function init() {
-  const section = document.querySelector('[data-scroll-parallax=section]');
+  const section = document.querySelector('[data-scroll-parallax=section]')
 
   if (section) {
-    const wraps = section.querySelectorAll('[data-scroll-parallax=wrap]');
+    const wraps = section.querySelectorAll('[data-scroll-parallax=wrap]')
     ctx = gsap.context(() => {
       if (wraps && wraps.length > 0) {
         wraps.forEach(item => {
-          const parallax = item.querySelectorAll(
-            '[data-scroll-parallax=parallax]'
-          );
+          const parallax = item.querySelectorAll('[data-scroll-parallax=parallax]')
 
-          const scrollTl = gsap.timeline();
+          const scrollTl = gsap.timeline()
 
           ScrollTrigger.create({
             animation: scrollTl,
@@ -22,7 +20,7 @@ function init() {
             start: 'top bottom',
             end: 'bottom top',
             scrub: 0.5,
-          });
+          })
 
           scrollTl.fromTo(
             parallax,
@@ -33,18 +31,18 @@ function init() {
               yPercent: 15,
               duration: 1,
             }
-          );
-        }, '<');
+          )
+        }, '<')
       }
-    });
+    })
   }
 }
 
 function cleanup() {
-  ctx && ctx.revert();
+  ctx && ctx.revert()
 }
 
 export default {
   init,
   cleanup,
-};
+}

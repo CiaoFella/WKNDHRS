@@ -1,20 +1,20 @@
-let pageReady = false;
+let pageReady = false
 
 const handler = {
   set: function (target, property, value) {
     if (property === 'pageReady') {
-      document.dispatchEvent(new CustomEvent('onPageReady', { detail: value }));
+      document.dispatchEvent(new CustomEvent('onPageReady', { detail: value }))
     }
-    target[property] = value;
-    return true;
+    target[property] = value
+    return true
   },
-};
+}
 
-export let proxy = new Proxy({}, handler);
+export let proxy = new Proxy({}, handler)
 Object.defineProperty(proxy, 'pageReady', {
   get: () => pageReady,
   set: newValue => {
-    pageReady = newValue;
-    return true;
+    pageReady = newValue
+    return true
   },
-});
+})

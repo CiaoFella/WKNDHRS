@@ -1,37 +1,31 @@
-import {
-  fullClipPath,
-  leftClipPath,
-  topClipPath,
-} from '../../utilities/variables.js';
-import { gsap, ScrollTrigger, SplitType } from '../../vendor.js';
+import { fullClipPath, leftClipPath, topClipPath } from '../../utilities/variables.js'
+import { gsap, ScrollTrigger, SplitType } from '../../vendor.js'
 
-let ctx;
+let ctx
 
 function init() {
-  const section = document.querySelector('[data-scroll-service=section]');
+  const section = document.querySelector('[data-scroll-service=section]')
   if (section) {
-    const items = section.querySelectorAll('[data-scroll-service=item]');
-    const intro = section.querySelector('[data-scroll-service=intro]');
-    const introButton = section.querySelector(
-      '[data-scroll-service=intro-button]'
-    );
+    const items = section.querySelectorAll('[data-scroll-service=item]')
+    const intro = section.querySelector('[data-scroll-service=intro]')
+    const introButton = section.querySelector('[data-scroll-service=intro-button]')
 
     const introSplit = new SplitType(intro, {
       type: 'words',
-    });
+    })
 
     ctx = gsap.context(() => {
       items.forEach(item => {
-        const headline = item.querySelector('[data-scroll-service=headline]');
-        const list = item.querySelector('[data-scroll-service=list]');
-        const visual = item.querySelector('[data-scroll-service=visual]');
+        const headline = item.querySelector('[data-scroll-service=headline]')
+        const list = item.querySelector('[data-scroll-service=list]')
+        const visual = item.querySelector('[data-scroll-service=visual]')
         const listSplit = new SplitType(list, {
           type: 'words',
-        });
+        })
 
         const itemTl = gsap.timeline({
           defaults: { duration: 1.5, ease: 'expo.out' },
-        });
+        })
 
         ScrollTrigger.create({
           trigger: item,
@@ -39,18 +33,13 @@ function init() {
           start: 'top bottom',
           end: 'top 75%',
           toggleActions: 'none play none reset',
-        });
+        })
 
         itemTl
           .from(headline, {
             yPercent: 150,
           })
-          .fromTo(
-            visual,
-            { clipPath: leftClipPath },
-            { clipPath: fullClipPath },
-            '<'
-          )
+          .fromTo(visual, { clipPath: leftClipPath }, { clipPath: fullClipPath }, '<')
           .fromTo(
             listSplit.words,
             { clipPath: topClipPath, yPercent: -50 },
@@ -61,12 +50,12 @@ function init() {
               stagger: { each: 0.05, ease: 'power1.in' },
             },
             '<'
-          );
-      });
+          )
+      })
 
       const tl = gsap.timeline({
         defaults: { duration: 1, ease: 'expo.out' },
-      });
+      })
 
       ScrollTrigger.create({
         trigger: section,
@@ -74,7 +63,7 @@ function init() {
         start: 'top bottom',
         end: 'top 75%',
         toggleActions: 'none play none reset',
-      });
+      })
 
       tl.fromTo(
         introSplit.words,
@@ -84,21 +73,16 @@ function init() {
           yPercent: 0,
           stagger: { each: 0.1, ease: 'power4.in' },
         }
-      ).fromTo(
-        introButton,
-        { opacity: 0 },
-        { opacity: 1, duration: 0.5 },
-        '<+0.1'
-      );
-    });
+      ).fromTo(introButton, { opacity: 0 }, { opacity: 1, duration: 0.5 }, '<+0.1')
+    })
   }
 }
 
 function cleanup() {
-  ctx && ctx.revert();
+  ctx && ctx.revert()
 }
 
 export default {
   init,
   cleanup,
-};
+}

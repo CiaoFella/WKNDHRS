@@ -1,27 +1,27 @@
-import { normalizeLogo } from '../../utilities/helper.js';
-import { gsap } from '../../vendor.js';
-import { enterPageAnimation } from './enterPageAnimation.js';
+import { normalizeLogo } from '../../utilities/helper.js'
+import { gsap } from '../../vendor.js'
+import { enterPageAnimation } from './enterPageAnimation.js'
 
-let ctx;
+let ctx
 
 function init(namespace) {
-  const section = document.querySelector('[data-page-loader=section]');
+  const section = document.querySelector('[data-page-loader=section]')
 
   if (section) {
     ctx = gsap.context(() => {
-      const menu = document.querySelector('[data-menu=section]');
-      const navBarMenu = document.querySelector('[data-menu=navbar-menu]');
-      const hideLetters = document.querySelectorAll('[data-hide=letter-wrap]');
-      const element = section.querySelectorAll('[data-page-loader=element]');
-      const bg = section.querySelector('[data-page-loader=bg]');
-      const logo = document.querySelector('[data-logo=wrap]');
+      const menu = document.querySelector('[data-menu=section]')
+      const navBarMenu = document.querySelector('[data-menu=navbar-menu]')
+      const hideLetters = document.querySelectorAll('[data-hide=letter-wrap]')
+      const element = section.querySelectorAll('[data-page-loader=element]')
+      const bg = section.querySelector('[data-page-loader=bg]')
+      const logo = document.querySelector('[data-logo=wrap]')
 
-      const tl = gsap.timeline({ paused: true, defaults: { duration: 1, ease: 'expo.out' } });
+      const tl = gsap.timeline({ paused: true, defaults: { duration: 1, ease: 'expo.out' } })
 
-      tl.set(section, { display: 'flex' });
-      tl.set(logo, { fontSize: '9vw' });
-      tl.set(navBarMenu, { opacity: 0 });
-      tl.set(menu, { pointerEvents: 'none' });
+      tl.set(section, { display: 'flex' })
+      tl.set(logo, { fontSize: '9vw' })
+      tl.set(navBarMenu, { opacity: 0 })
+      tl.set(menu, { pointerEvents: 'none' })
 
       tl.to(hideLetters, {
         opacity: 0,
@@ -32,7 +32,7 @@ function init(namespace) {
         .to(element, { yPercent: -100, duration: 1 }, '>-15%')
         .call(
           () => {
-            normalizeLogo(namespace);
+            normalizeLogo(namespace)
           },
           [],
           '<'
@@ -41,18 +41,18 @@ function init(namespace) {
         .call(() => enterPageAnimation().play(), [], '<+50%')
         .to(navBarMenu, { opacity: 1, duration: 1, ease: 'power2.out' }, '>-25%')
         .to(section, { display: 'none', duration: 0 })
-        .set(menu, { pointerEvents: 'auto' }, '<');
+        .set(menu, { pointerEvents: 'auto' }, '<')
 
-      tl.play();
-    });
+      tl.play()
+    })
   }
 }
 
 function cleanup() {
-  ctx && ctx.revert();
+  ctx && ctx.revert()
 }
 
 export default {
   init,
   cleanup,
-};
+}

@@ -1,14 +1,14 @@
-import shared from '../animations/shared.js';
+import shared from '../animations/shared.js'
 
 function init() {
-  shared.init();
+  shared.init()
 }
 
 function cleanup() {
-  shared.cleanup();
+  shared.cleanup()
 }
 
 export default {
   init,
   cleanup,
-};
+}

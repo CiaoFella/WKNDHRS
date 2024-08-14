@@ -1,19 +1,17 @@
-import { topClipPath, fullClipPath } from '../../utilities/variables.js';
-import { gsap, ScrollTrigger, SplitType } from '../../vendor.js';
+import { topClipPath, fullClipPath } from '../../utilities/variables.js'
+import { gsap, ScrollTrigger, SplitType } from '../../vendor.js'
 
-let context;
+let context
 
 function init() {
-  const section = document.querySelector('[data-hero]');
-  const heroType = section.dataset.hero;
+  const section = document.querySelector('[data-hero]')
+  const heroType = section.dataset.hero
   context = gsap.context(() => {
     switch (heroType) {
       case 'home':
-        const homeTl = gsap.timeline();
+        const homeTl = gsap.timeline()
 
-        const bgOverlay = section.querySelectorAll(
-          '[data-animate-hero=bg-overlay]'
-        );
+        const bgOverlay = section.querySelectorAll('[data-animate-hero=bg-overlay]')
 
         ScrollTrigger.create({
           trigger: section,
@@ -21,7 +19,7 @@ function init() {
           start: 'top top',
           end: '75% bottom',
           scrub: true,
-        });
+        })
 
         homeTl.fromTo(
           bgOverlay,
@@ -33,20 +31,16 @@ function init() {
             duration: 1,
             ease: 'none',
           }
-        );
-        break;
+        )
+        break
       case 'sub':
-        const subTl = gsap.timeline();
-        const subScrollSection = document.querySelector(
-          '[data-scroll-hero=section]'
-        );
-        const subScrollTitle = section.querySelector(
-          '[data-scroll-hero=title]'
-        );
-        const subScrollText = section.querySelector('[data-scroll-hero=text]');
+        const subTl = gsap.timeline()
+        const subScrollSection = document.querySelector('[data-scroll-hero=section]')
+        const subScrollTitle = section.querySelector('[data-scroll-hero=title]')
+        const subScrollText = section.querySelector('[data-scroll-hero=text]')
         const subTextSplit = new SplitType(subScrollText, {
           type: 'lines',
-        });
+        })
 
         ScrollTrigger.create({
           trigger: subScrollSection,
@@ -54,14 +48,11 @@ function init() {
           start: 'top top',
           end: 'bottom top',
           toggleActions: 'play none none reverse',
-        });
+        })
 
         const currentFontSize = Number(
-          window
-            .getComputedStyle(subScrollTitle)
-            .getPropertyValue('font-size')
-            .slice(0, -2)
-        );
+          window.getComputedStyle(subScrollTitle).getPropertyValue('font-size').slice(0, -2)
+        )
 
         subTl
           .to(
@@ -84,21 +75,21 @@ function init() {
               ease: 'power2.out',
             },
             '<'
-          );
+          )
 
-        break;
+        break
 
       default:
-        break;
+        break
     }
-  });
+  })
 }
 
 function cleanup() {
-  context && context.revert();
+  context && context.revert()
 }
 
 export default {
   init,
   cleanup,
-};
+}

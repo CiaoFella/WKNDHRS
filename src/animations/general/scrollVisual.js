@@ -1,25 +1,25 @@
-import { bottomClipPath, fullClipPath } from '../../utilities/variables.js';
-import { gsap, ScrollTrigger } from '../../vendor.js';
+import { bottomClipPath, fullClipPath } from '../../utilities/variables.js'
+import { gsap, ScrollTrigger } from '../../vendor.js'
 
-let ctx;
+let ctx
 
 function init() {
-  const sections = document.querySelectorAll('[data-scroll-visual=section]');
+  const sections = document.querySelectorAll('[data-scroll-visual=section]')
   if (sections && sections.length > 0) {
     sections.forEach(section => {
-      const items = section.querySelectorAll('[data-scroll-visual=visual]');
+      const items = section.querySelectorAll('[data-scroll-visual=visual]')
 
-      const tl = gsap.timeline();
+      const tl = gsap.timeline()
       ScrollTrigger.create({
         trigger: section,
         animation: tl,
         start: 'top bottom',
         end: 'top center',
         toggleActions: 'none play none reset',
-      });
+      })
 
       items.forEach(item => {
-        const animationType = item.dataset.type;
+        const animationType = item.dataset.type
         ctx = gsap.context(() => {
           switch (animationType) {
             case 'clip-bottom':
@@ -32,23 +32,23 @@ function init() {
                   ease: 'expo.out',
                 },
                 '<+0.1'
-              );
-              break;
+              )
+              break
 
             default:
-              break;
+              break
           }
-        });
-      });
-    });
+        })
+      })
+    })
   }
 }
 
 function cleanup() {
-  ctx && ctx.revert();
+  ctx && ctx.revert()
 }
 
 export default {
   init,
   cleanup,
-};
+}

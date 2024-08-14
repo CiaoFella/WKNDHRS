@@ -1,88 +1,98 @@
-import { topClipPath, fullClipPath } from '../../utilities/variables.js'
+import { topClipPath, fullClipPath, isMobile } from '../../utilities/variables.js'
 import { gsap, ScrollTrigger, SplitType } from '../../vendor.js'
 
 let context
 
+const mm = gsap.matchMedia()
+
 function init() {
   const section = document.querySelector('[data-hero]')
-  const heroType = section.dataset.hero
-  context = gsap.context(() => {
-    switch (heroType) {
-      case 'home':
-        const homeTl = gsap.timeline()
+  if (section) {
+    const heroType = section.dataset.hero
+    context = gsap.context(() => {
+      switch (heroType) {
+        case 'home':
+          const homeTl = gsap.timeline()
 
-        const bgOverlay = section.querySelectorAll('[data-animate-hero=bg-overlay]')
+          const bgOverlay = section.querySelectorAll('[data-animate-hero=bg-overlay]')
 
-        ScrollTrigger.create({
-          trigger: section,
-          animation: homeTl,
-          start: 'top top',
-          end: '75% bottom',
-          scrub: true,
-        })
+          ScrollTrigger.create({
+            trigger: section,
+            animation: homeTl,
+            start: 'top top',
+            end: '75% bottom',
+            scrub: true,
+          })
 
-        homeTl.fromTo(
-          bgOverlay,
-          {
-            scaleY: 0,
-          },
-          {
-            scaleY: 1,
-            duration: 1,
-            ease: 'none',
-          }
-        )
-        break
-      case 'sub':
-        const subTl = gsap.timeline()
-        const subScrollSection = document.querySelector('[data-scroll-hero=section]')
-        const subScrollTitle = section.querySelector('[data-scroll-hero=title]')
-        const subScrollText = section.querySelector('[data-scroll-hero=text]')
-        const subTextSplit = new SplitType(subScrollText, {
-          type: 'lines',
-        })
-
-        ScrollTrigger.create({
-          trigger: subScrollSection,
-          animation: subTl,
-          start: 'top top',
-          end: 'bottom top',
-          toggleActions: 'play none none reverse',
-        })
-
-        const currentFontSize = Number(
-          window.getComputedStyle(subScrollTitle).getPropertyValue('font-size').slice(0, -2)
-        )
-
-        subTl
-          .to(
-            subScrollTitle,
+          homeTl.fromTo(
+            bgOverlay,
             {
-              fontSize: currentFontSize / 3,
-              duration: 0.5,
-              ease: 'power2.inOut',
+              scaleY: 0,
             },
-            '<'
+            {
+              scaleY: 1,
+              duration: 1,
+              ease: 'none',
+            }
           )
-          .fromTo(
-            subTextSplit.lines,
-            { clipPath: topClipPath, yPercent: 150 },
-            {
-              clipPath: fullClipPath,
-              yPercent: 0,
-              duration: 0.5,
-              stagger: 0.05,
-              ease: 'power2.out',
-            },
-            '<'
+          break
+        case 'sub':
+          const subTl = gsap.timeline()
+          const subScrollSection = document.querySelector('[data-scroll-hero=section]')
+          const subScrollTitle = section.querySelector('[data-scroll-hero=title]')
+          const subScrollText = section.querySelector('[data-scroll-hero=text]')
+          const subTextSplit = new SplitType(subScrollText, {
+            type: 'lines',
+          })
+
+          ScrollTrigger.create({
+            trigger: subScrollSection,
+            animation: subTl,
+            start: 'top top',
+            end: 'bottom top',
+            toggleActions: 'play none none reverse',
+          })
+
+          const currentFontSize = Number(
+            window.getComputedStyle(subScrollTitle).getPropertyValue('font-size').slice(0, -2)
           )
 
-        break
+          let factor = 3
 
-      default:
-        break
-    }
-  })
+          mm.add(isMobile, () => {
+            factor = 1.25
+          })
+
+          subTl
+            .to(
+              subScrollTitle,
+              {
+                fontSize: currentFontSize / factor,
+                duration: 0.5,
+                ease: 'power2.inOut',
+              },
+              '<'
+            )
+            .fromTo(
+              subTextSplit.lines,
+              { clipPath: topClipPath, yPercent: 150 },
+              {
+                clipPath: fullClipPath,
+                yPercent: 0,
+                duration: 0.5,
+                stagger: 0.05,
+                ease: 'power2.out',
+              },
+              '<'
+            )
+
+          break
+
+        default:
+          break
+      }
+    })
+  }
 }
 
 function cleanup() {

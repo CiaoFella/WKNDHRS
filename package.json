@@ -17,6 +17,7 @@
     "@barba/core": "^2.10.2",
     "@rollup/plugin-commonjs": "^26.0.1",
     "@rollup/plugin-node-resolve": "^15.2.3",
+    "@studio-freight/lenis": "^1.0.42",
     "clean-webpack-plugin": "^4.0.0",
     "file-loader": "^6.2.0",
     "gsap": "^3.9.1",

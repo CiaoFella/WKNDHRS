@@ -5,6 +5,7 @@ import pageLoader from './animations/general/pageLoader.js'
 import { normalizeLogo } from './utilities/helper.js'
 import { enterPageAnimation } from './animations/general/enterPageAnimation.js'
 import createSplitTypes from './utilities/createSplitTypes.js'
+import lenis from './utilities/smoothScroll.js'
 
 gsap.registerPlugin(ScrollTrigger)
 menu.init()
@@ -47,6 +48,7 @@ const initialPageName = document.querySelector('[data-barba="container"]').datas
 loadPageModule(initialPageName)
 pageLoader.init(initialPageName)
 createSplitTypes.init()
+lenis.scrollTo(0, { duration: 0, immediate: true })
 
 document.addEventListener('onPageReady', event => {
   if (event.detail === true) {
@@ -61,6 +63,7 @@ barba.hooks.beforeEnter(({ next }) => {
 
 barba.hooks.after(({ next }) => {
   const pageName = next.namespace
+  lenis.scrollTo(0, { duration: 0, immediate: true })
   normalizeLogo(pageName)
   loadPageModule(pageName)
   createSplitTypes.init()

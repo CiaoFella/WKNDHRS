@@ -1,3 +1,4 @@
+import lenis from '../../utilities/smoothScroll.js'
 import { gsap } from '../../vendor.js'
 
 let ctx
@@ -36,8 +37,10 @@ function init() {
 
         if (trigger.classList.contains('is-active')) {
           tl.play()
+          lenis.stop()
         } else {
           tl.reverse()
+          lenis.start()
         }
       })
     })

@@ -1,5 +1,5 @@
 import { fullClipPath, topClipPath } from '../../utilities/variables.js'
-import { gsap, SplitType } from '../../vendor.js'
+import { gsap, SplitType, ScrollTrigger } from '../../vendor.js'
 
 export function enterPageAnimation() {
   const tl = gsap.timeline({ paused: true })
@@ -21,7 +21,14 @@ export function enterPageAnimation() {
     tl.fromTo(
       textSplit.lines,
       { clipPath: topClipPath, y: 100 },
-      { clipPath: fullClipPath, y: 0, stagger: 0.1, duration: 1, ease: 'expo.out' }
+      {
+        clipPath: fullClipPath,
+        y: 0,
+        stagger: 0.1,
+        duration: 1,
+        ease: 'expo.out',
+        onComplete: () => ScrollTrigger.refresh(),
+      }
     )
   }
 

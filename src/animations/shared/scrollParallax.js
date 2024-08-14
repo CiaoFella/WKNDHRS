@@ -19,16 +19,16 @@ function init() {
             trigger: item,
             start: 'top bottom',
             end: 'bottom top',
-            scrub: 0.5,
+            scrub: 0.25,
           })
 
           scrollTl.fromTo(
             parallax,
             {
-              yPercent: -15,
+              yPercent: -10,
             },
             {
-              yPercent: 15,
+              yPercent: 10,
               duration: 1,
             }
           )

@@ -1,13 +1,22 @@
 import { closeMenu } from './utilities/helper.js'
 import { proxy } from './utilities/pageReadyListener.js'
+import lenis from './utilities/smoothScroll.js'
 import { fullClipPath, topClipPath } from './utilities/variables.js'
-import { gsap, barba } from './vendor.js'
+import { gsap, barba, ScrollTrigger } from './vendor.js'
+
+gsap.registerPlugin(ScrollTrigger)
 
 barba.init({
   preventRunning: true,
   transitions: [
     {
       name: 'default-transition',
+      once() {
+        setTimeout(() => {
+          lenis.scrollTo(0, { immediate: true })
+          ScrollTrigger.refresh()
+        }, 250)
+      },
       leave(data) {
         let done = this.async()
         proxy.pageReady = false

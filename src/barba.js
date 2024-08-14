@@ -1,3 +1,4 @@
+import { proxy } from './utilities/pageReadyListener.js';
 import { fullClipPath, topClipPath } from './utilities/variables.js';
 import { gsap, barba } from './vendor.js';
 
@@ -8,11 +9,11 @@ barba.init({
       name: 'default-transition',
       leave(data) {
         let done = this.async();
+        proxy.pageReady = false;
         gsap.to(data.current.container, {
-          opacity: 0.5,
+          opacity: 0.1,
           duration: 0.4,
-          scaleY: 0.99,
-          scaleX: 0.97,
+          yPercent: 1,
           transformOrigin: '50% 50%',
           ease: 'none',
           force3D: true,
@@ -20,23 +21,26 @@ barba.init({
         });
       },
       enter(data) {
-        gsap.fromTo(
-          data.next.container,
-          {
-            clipPath: topClipPath,
-            height: 0,
-          },
-          {
-            clipPath: fullClipPath,
-            height: '100vh',
-            duration: 1,
-            delay: 0.1,
-            ease: 'expo.out',
-            onComplete: () => {
-              gsap.set(data.next.container, { height: 'auto' });
+        const enterTl = gsap.timeline();
+        enterTl
+          .fromTo(
+            data.next.container,
+            {
+              clipPath: topClipPath,
+              height: 0,
             },
-          }
-        );
+            {
+              clipPath: fullClipPath,
+              height: '100vh',
+              duration: 1,
+              delay: 0.1,
+              ease: 'expo.out',
+              onComplete: () => {
+                gsap.set(data.next.container, { height: 'auto' });
+              },
+            }
+          )
+          .call(() => (proxy.pageReady = true), [], '<+50%');
       },
     },
   ],

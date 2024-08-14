@@ -21,7 +21,6 @@ function init() {
         animation: tl,
         start: 'top bottom',
         end: 'top 65%',
-        markers: true,
         toggleActions: 'none play none reset',
       })
 

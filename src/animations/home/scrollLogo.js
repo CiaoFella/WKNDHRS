@@ -5,7 +5,6 @@ let ctx
 function init(namespace) {
   const section = document.querySelector('[data-scroll-nav-logo=section]')
   const logo = document.querySelector('[data-logo=wrap]')
-  console.log(logo)
   ctx = gsap.context(() => {
     const tl = gsap.timeline()
 

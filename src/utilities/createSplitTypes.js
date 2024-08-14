@@ -8,7 +8,6 @@ function init() {
     splitTypes.forEach(splitType => {
       const type = splitType.dataset.splitType || 'lines'
       SplitTypes.push(new SplitType(splitType, { types: type }))
-      console.log(SplitTypes)
     })
   }
 }

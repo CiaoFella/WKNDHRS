@@ -53,3 +53,11 @@ export function normalizeLogo(namespace) {
     gsap.to(logo, { fontSize: '2rem', duration: 1, ease: 'expo.out' })
   }
 }
+
+export function closeMenu() {
+  const menuTrigger = document.querySelector('[data-menu-mobile=trigger]')
+
+  if (menuTrigger.classList.contains('is-active')) {
+    menuTrigger.click()
+  }
+}

@@ -1,3 +1,4 @@
+import { closeMenu } from './utilities/helper.js'
 import { proxy } from './utilities/pageReadyListener.js'
 import { fullClipPath, topClipPath } from './utilities/variables.js'
 import { gsap, barba } from './vendor.js'
@@ -10,6 +11,7 @@ barba.init({
       leave(data) {
         let done = this.async()
         proxy.pageReady = false
+        closeMenu()
         gsap.to(data.current.container, {
           opacity: 0.1,
           duration: 0.4,

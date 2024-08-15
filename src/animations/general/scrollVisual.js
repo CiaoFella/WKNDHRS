@@ -45,7 +45,9 @@ function init() {
 }
 
 function cleanup() {
-  ctx && ctx.revert()
+  if (ctx) {
+    ctx.revert()
+  }
 }
 
 export default {

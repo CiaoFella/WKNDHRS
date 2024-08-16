@@ -1,6 +1,8 @@
-import { normalizeLogo } from '../../utilities/helper.js'
+import { getCurrentPage, normalizeLogo } from '../../utilities/helper.js'
 import { gsap } from '../../vendor.js'
-import { enterPageAnimation } from './enterPageAnimation.js'
+import lenis from '../../utilities/smoothScroll.js'
+import { proxy } from '../../utilities/pageReadyListener.js'
+import handlePageEnterAnimation from './handlePageEnter.js'
 
 let ctx
 
@@ -16,7 +18,12 @@ function init(namespace) {
       const bg = section.querySelector('[data-page-loader=bg]')
       const logo = document.querySelector('[data-logo=wrap]')
 
-      const tl = gsap.timeline({ paused: true, defaults: { duration: 1, ease: 'expo.out' } })
+      const tl = gsap.timeline({
+        onStart: () => lenis.stop(),
+        onComplete: () => lenis.start(),
+        paused: true,
+        defaults: { duration: 1, ease: 'expo.out' },
+      })
 
       tl.set(section, { display: 'flex' })
       tl.set(logo, { fontSize: '9vw' })
@@ -38,7 +45,7 @@ function init(namespace) {
           '<'
         )
         .to(bg, { scaleY: '0', duration: 1, transformOrigin: '50% 0%' }, '<+35%')
-        .call(() => enterPageAnimation().play(), [], '<+50%')
+        .call(() => handlePageEnterAnimation(getCurrentPage()).play(), [], '<+50%')
         .to(navBarMenu, { opacity: 1, duration: 1, ease: 'power2.out' }, '>-25%')
         .to(section, { display: 'none', duration: 0 })
         .set(menu, { pointerEvents: 'auto' }, '<')

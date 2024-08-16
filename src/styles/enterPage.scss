@@ -1,3 +1,13 @@
 [data-enter-page=title], [data-enter-page=text] .line {
     clip-path: polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%);
 }
+
+[data-enter-contact=section] {
+    [data-enter-contact=element] {
+        transform: translate(0, 100%);
+    }
+
+    [data-enter-contact=paragraph] .line {
+        clip-path: polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%);
+    }
+}

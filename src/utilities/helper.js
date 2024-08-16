@@ -77,3 +77,9 @@ export function autoPlayVideosInView() {
     })
   })
 }
+
+export function getCurrentPage() {
+  const currentPage = document.querySelector('[data-barba="container"]').dataset.barbaNamespace
+
+  return currentPage
+}

@@ -2,10 +2,10 @@ import { gsap, ScrollTrigger } from './vendor.js'
 import barba from './barba.js'
 import menu from './animations/general/menu.js'
 import pageLoader from './animations/general/pageLoader.js'
-import { autoPlayVideosInView, normalizeLogo } from './utilities/helper.js'
-import { enterPageAnimation } from './animations/general/enterPageAnimation.js'
+import { autoPlayVideosInView, getCurrentPage, normalizeLogo } from './utilities/helper.js'
 import createSplitTypes from './utilities/createSplitTypes.js'
 import lenis from './utilities/smoothScroll.js'
+import handlePageEnterAnimation from './animations/general/handlePageEnter.js'
 
 gsap.registerPlugin(ScrollTrigger)
 menu.init()
@@ -51,7 +51,7 @@ createSplitTypes.init()
 
 document.addEventListener('onPageReady', event => {
   if (event.detail === true) {
-    enterPageAnimation().play()
+    handlePageEnterAnimation(getCurrentPage()).play()
   }
 })
 

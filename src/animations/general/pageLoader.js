@@ -1,7 +1,6 @@
 import { getCurrentPage, normalizeLogo } from '../../utilities/helper.js'
 import { gsap } from '../../vendor.js'
 import lenis from '../../utilities/smoothScroll.js'
-import { proxy } from '../../utilities/pageReadyListener.js'
 import handlePageEnterAnimation from './handlePageEnter.js'
 
 let ctx

@@ -1,6 +1,5 @@
 import { closeMenu } from './utilities/helper.js'
 import { proxy } from './utilities/pageReadyListener.js'
-import lenis from './utilities/smoothScroll.js'
 import { fullClipPath, topClipPath } from './utilities/variables.js'
 import { gsap, barba, ScrollTrigger } from './vendor.js'
 
@@ -11,12 +10,6 @@ barba.init({
   transitions: [
     {
       name: 'default-transition',
-      once() {
-        setTimeout(() => {
-          lenis.scrollTo(0, { immediate: true })
-          ScrollTrigger.refresh()
-        }, 250)
-      },
       leave(data) {
         let done = this.async()
         proxy.pageReady = false

@@ -22,9 +22,9 @@ barba.init({
         proxy.pageReady = false
         closeMenu()
         gsap.to(data.current.container, {
-          opacity: 0.1,
-          duration: 0.4,
-          yPercent: 1,
+          opacity: 0,
+          duration: 0.3,
+          yPercent: 0.5,
           transformOrigin: '50% 50%',
           ease: 'none',
           force3D: true,

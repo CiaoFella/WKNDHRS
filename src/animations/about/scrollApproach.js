@@ -56,6 +56,7 @@ function init() {
 
         gsap.set(headlineSplit.lines, { yPercent: 200 })
         gsap.set([numbers, zero], { yPercent: 100 })
+        gsap.set(lists, { opacity: 0.25 })
         listEnterTl
           .to(
             headlineSplit.lines,
@@ -65,6 +66,7 @@ function init() {
             },
             '<+0.2'
           )
+          .to(list, { opacity: 1, duration: 0.25, ease: 'power2.inOut' }, 0)
           .to(
             numbers[index],
             {

@@ -1,6 +1,10 @@
 @import './enterPage.scss';
 @import './detail.scss';
 
+[data-page-loader=section] {
+    display: flex;
+}
+
 html.lenis, html.lenis body {
     height: auto;
 }

@@ -1,5 +1,7 @@
-import { fullClipPath, topClipPath } from '../../utilities/variables.js'
+import { fullClipPath, isDesktop, isTablet, topClipPath } from '../../utilities/variables.js'
 import { gsap, SplitType, ScrollTrigger } from '../../vendor.js'
+
+const mm = gsap.matchMedia()
 
 export default function handlePageEnterAnimation(currentPage) {
   const tl = gsap.timeline({ paused: true, defaults: { duration: 1, ease: 'expo.out' } })
@@ -18,18 +20,33 @@ export default function handlePageEnterAnimation(currentPage) {
     const textSplit = new SplitType(text, {
       types: 'lines',
     })
-    tl.fromTo(
-      textSplit.lines,
-      { clipPath: topClipPath, y: 100 },
-      {
-        clipPath: fullClipPath,
-        y: 0,
-        stagger: 0.1,
-        duration: 1,
-        ease: 'expo.out',
-        onComplete: () => ScrollTrigger.refresh(),
-      }
-    )
+    mm.add(isTablet, () => {
+      tl.fromTo(
+        textSplit.lines,
+        { opacity: 0, y: 50 },
+        {
+          opacity: 1,
+          y: 0,
+          stagger: 0.1,
+          duration: 1,
+          onComplete: () => ScrollTrigger.refresh(),
+        }
+      )
+    })
+    mm.add(isDesktop, () => {
+      tl.fromTo(
+        textSplit.lines,
+        { clipPath: topClipPath, y: 100 },
+        {
+          clipPath: fullClipPath,
+          y: 0,
+          stagger: 0.1,
+          duration: 1,
+          ease: 'expo.out',
+          onComplete: () => ScrollTrigger.refresh(),
+        }
+      )
+    })
   }
 
   if (currentPage === 'contact') {

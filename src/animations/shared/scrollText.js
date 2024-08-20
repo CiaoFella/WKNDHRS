@@ -1,10 +1,12 @@
 import { gsap, ScrollTrigger, SplitType } from '../../vendor.js'
-import { fullClipPath, isTablet, topClipPath } from '../../utilities/variables.js'
+import { fullClipPath, isDesktop, isTablet, topClipPath } from '../../utilities/variables.js'
 import { unwrapSpanAndPreserveClasses } from '../../utilities/helper.js'
 
 gsap.registerPlugin(ScrollTrigger)
 
 let ctx
+
+const mm = gsap.matchMedia()
 
 function init() {
   ctx = gsap.context(() => {
@@ -34,25 +36,38 @@ function init() {
           const headlineDuration = item.dataset.duration || 1
 
           let headlineY = 150
-          let mm = gsap.matchMedia()
 
           mm.add(isTablet, () => {
-            headlineY = 75
+            headlineY = 25
+            tl.fromTo(
+              headlineSplit.lines,
+              { opacity: 0, y: headlineY },
+              {
+                opacity: 1,
+                y: 0,
+                duration: headlineDuration,
+                delay: headlineDelay,
+                stagger: 0.05,
+              },
+              '<+0.1'
+            )
           })
 
-          tl.fromTo(
-            headlineSplit.lines,
-            { clipPath: topClipPath, y: headlineY },
-            {
-              clipPath: fullClipPath,
-              y: 0,
-              duration: headlineDuration,
-              delay: headlineDelay,
-              stagger: 0.05,
-              ease: 'expo.out',
-            },
-            '<+0.1'
-          )
+          mm.add(isDesktop, () => {
+            tl.fromTo(
+              headlineSplit.lines,
+              { clipPath: topClipPath, y: headlineY },
+              {
+                clipPath: fullClipPath,
+                y: 0,
+                duration: headlineDuration,
+                delay: headlineDelay,
+                stagger: 0.05,
+                ease: 'expo.out',
+              },
+              '<+0.1'
+            )
+          })
         })
       }
 
@@ -65,19 +80,36 @@ function init() {
             types: 'lines',
           })
 
-          tl.fromTo(
-            textSplit.lines,
-            { clipPath: topClipPath, y: 50 },
-            {
-              clipPath: fullClipPath,
-              y: 0,
-              duration: textDuration,
-              delay: textDelay,
-              stagger: 0.05,
-              ease: 'expo.out',
-            },
-            0
-          )
+          mm.add(isTablet, () => {
+            tl.fromTo(
+              textSplit.lines,
+              { opacity: 0, y: 50 },
+              {
+                opacity: 1,
+                y: 0,
+                duration: textDuration,
+                delay: textDelay,
+                stagger: 0.05,
+              },
+              0
+            )
+          })
+
+          mm.add(isDesktop, () => {
+            tl.fromTo(
+              textSplit.lines,
+              { clipPath: topClipPath, y: 50 },
+              {
+                clipPath: fullClipPath,
+                y: 0,
+                duration: textDuration,
+                delay: textDelay,
+                stagger: 0.05,
+                ease: 'expo.out',
+              },
+              0
+            )
+          })
         })
       }
     })

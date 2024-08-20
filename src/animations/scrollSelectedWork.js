@@ -1,4 +1,4 @@
-import { bottomClipPath, fullClipPath } from '../utilities/variables.js'
+import { bottomClipPath, fullClipPath, isDesktop, isTablet } from '../utilities/variables.js'
 import { gsap, ScrollTrigger } from '../vendor.js'
 
 let ctx
@@ -23,6 +23,8 @@ function init() {
 
       scrubTl.to(list, { scale: 0.95, duration: 1 })
 
+      const mm = gsap.matchMedia()
+
       items.forEach((item, index) => {
         const headline = item.querySelector('[data-scroll-selected-work=headline]')
         const category = item.querySelector('[data-scroll-selected-work=category]')
@@ -33,6 +35,25 @@ function init() {
         const boxTitle = item.querySelector('[data-scroll-selected-work=box-title]')
         const boxImg = item.querySelector('[data-scroll-selected-work=box-img]')
         const boxVideo = item.querySelector('[data-scroll-selected-work=box-video]')
+
+        // Variable to store the video element when it's removed
+        let storedBoxVideo = null
+
+        // GSAP MatchMedia to handle different viewport sizes
+        mm.add(isTablet, () => {
+          // Remove boxVideo from the DOM on tablet
+          if (boxVideo) {
+            storedBoxVideo = boxVideo // Store the reference
+            boxVideo.remove() // Remove from DOM
+          }
+        })
+
+        mm.add(isDesktop, () => {
+          // Re-append boxVideo to the DOM on desktop if it was removed
+          if (storedBoxVideo && !box.contains(storedBoxVideo)) {
+            box.appendChild(storedBoxVideo) // Re-append to the original parent
+          }
+        })
 
         const revealTl = gsap.timeline({
           paused: true,
@@ -55,7 +76,7 @@ function init() {
           .fromTo(headline, { yPercent: 100 }, { yPercent: 0, ease: 'expo.inOut' }, '<')
           .fromTo(category, { yPercent: 100 }, { yPercent: 0, ease: 'expo.inOut' }, '<')
           .fromTo(
-            [boxImg, boxVideo, boxTitle],
+            [boxImg, storedBoxVideo, boxTitle],
             { clipPath: bottomClipPath },
             { clipPath: fullClipPath, ease: 'expo.inOut' },
             '<'

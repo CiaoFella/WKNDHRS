@@ -1,4 +1,4 @@
-import { topClipPath, fullClipPath, isMobile } from '../../utilities/variables.js'
+import { topClipPath, fullClipPath, isDesktop, isTablet } from '../../utilities/variables.js'
 import { gsap, ScrollTrigger, SplitType } from '../../vendor.js'
 
 let context
@@ -59,21 +59,37 @@ function init() {
 
           let factor = 3
 
-          mm.add(isMobile, () => {
+          mm.add(isTablet, () => {
             factor = 1.25
           })
 
-          subTl
-            .to(
-              subScrollTitle,
+          subTl.to(
+            subScrollTitle,
+            {
+              fontSize: currentFontSize / factor,
+              duration: 0.5,
+              ease: 'power2.inOut',
+            },
+            '<'
+          )
+
+          mm.add(isTablet, () => {
+            subTl.fromTo(
+              subTextSplit.lines,
+              { opacity: 0, yPercent: 150 },
               {
-                fontSize: currentFontSize / factor,
+                opacity: 1,
+                yPercent: 0,
                 duration: 0.5,
-                ease: 'power2.inOut',
+                stagger: 0.05,
+                ease: 'power2.out',
               },
               '<'
             )
-            .fromTo(
+          })
+
+          mm.add(isDesktop, () => {
+            subTl.fromTo(
               subTextSplit.lines,
               { clipPath: topClipPath, yPercent: 150 },
               {
@@ -85,6 +101,7 @@ function init() {
               },
               '<'
             )
+          })
 
           break
 

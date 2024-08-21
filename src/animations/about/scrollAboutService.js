@@ -1,9 +1,10 @@
-import { fullClipPath, leftClipPath, topClipPath } from '../../utilities/variables.js'
+import { fullClipPath, isDesktop, isTablet, leftClipPath, topClipPath } from '../../utilities/variables.js'
 import { gsap, ScrollTrigger, SplitType } from '../../vendor.js'
 
 let ctx
 
 function init() {
+  const mm = gsap.matchMedia()
   const section = document.querySelector('[data-scroll-service=section]')
   if (section) {
     const items = section.querySelectorAll('[data-scroll-service=item]')
@@ -40,7 +41,22 @@ function init() {
             yPercent: 150,
           })
           .fromTo(visual, { clipPath: leftClipPath }, { clipPath: fullClipPath }, '<')
-          .fromTo(
+
+        mm.add(isTablet, () => {
+          itemTl.fromTo(
+            listSplit.words,
+            { opacity: 0, yPercent: -50 },
+            {
+              opacity: 1,
+              yPercent: 0,
+              duration: 1,
+              stagger: { each: 0.05, ease: 'power1.in' },
+            },
+            '<'
+          )
+        })
+        mm.add(isDesktop, () => {
+          itemTl.fromTo(
             listSplit.words,
             { clipPath: topClipPath, yPercent: -50 },
             {
@@ -51,6 +67,7 @@ function init() {
             },
             '<'
           )
+        })
       })
 
       const tl = gsap.timeline({
@@ -65,15 +82,29 @@ function init() {
         toggleActions: 'none play none reset',
       })
 
-      tl.fromTo(
-        introSplit.words,
-        { clipPath: topClipPath, yPercent: 100 },
-        {
-          clipPath: fullClipPath,
-          yPercent: 0,
-          stagger: { each: 0.1, ease: 'power4.in' },
-        }
-      ).fromTo(introButton, { opacity: 0 }, { opacity: 1, duration: 0.5 }, '<+0.1')
+      mm.add(isTablet, () => {
+        tl.fromTo(
+          introSplit.words,
+          { opacity: 0, yPercent: 100 },
+          {
+            opacity: 1,
+            yPercent: 0,
+            stagger: { each: 0.1, ease: 'power4.in' },
+          }
+        ).fromTo(introButton, { opacity: 0 }, { opacity: 1, duration: 0.5 }, '<+0.1')
+      })
+
+      mm.add(isDesktop, () => {
+        tl.fromTo(
+          introSplit.words,
+          { clipPath: topClipPath, yPercent: 100 },
+          {
+            clipPath: fullClipPath,
+            yPercent: 0,
+            stagger: { each: 0.1, ease: 'power4.in' },
+          }
+        ).fromTo(introButton, { opacity: 0 }, { opacity: 1, duration: 0.5 }, '<+0.1')
+      })
     })
   }
 }

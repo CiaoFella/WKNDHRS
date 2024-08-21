@@ -1,7 +1,9 @@
-import { topClipPath, fullClipPath, bottomClipPath } from '../../utilities/variables.js'
+import { topClipPath, fullClipPath, bottomClipPath, isTablet } from '../../utilities/variables.js'
 import { gsap, ScrollTrigger, SplitType } from '../../vendor.js'
 
 let ctx
+
+const mm = gsap.matchMedia()
 
 function init() {
   const section = document.querySelector('[data-scroll-approach=section]')
@@ -54,7 +56,12 @@ function init() {
           type: 'lines',
         })
 
-        gsap.set(headlineSplit.lines, { yPercent: 200 })
+        let headlineYPercent = 200
+
+        mm.add(isTablet, () => {
+          headlineYPercent = 250
+        })
+        gsap.set(headlineSplit.lines, { yPercent: headlineYPercent })
         gsap.set([numbers, zero], { yPercent: 100 })
         gsap.set(lists, { opacity: 0.25 })
         listEnterTl
@@ -83,7 +90,7 @@ function init() {
           const prevHeadlineLines = headlines[index - 1].querySelectorAll('.line')
           const prevNumber = numbers[index - 1]
 
-          listEnterTl.to(prevHeadlineLines, { yPercent: -200, stagger: 0.1 }, 0)
+          listEnterTl.to(prevHeadlineLines, { yPercent: -headlineYPercent, stagger: 0.1 }, 0)
           listEnterTl.to(prevNumber, { yPercent: -100 }, '<')
         }
 

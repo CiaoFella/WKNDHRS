@@ -15,7 +15,7 @@ barba.init({
         proxy.pageReady = false
         closeMenu()
         gsap.to(data.current.container, {
-          opacity: 0,
+          opacity: 0.2,
           duration: 0.3,
           yPercent: 0.5,
           transformOrigin: '50% 50%',

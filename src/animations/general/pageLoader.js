@@ -2,8 +2,11 @@ import { getCurrentPage, normalizeLogo } from '../../utilities/helper.js'
 import { gsap } from '../../vendor.js'
 import lenis from '../../utilities/smoothScroll.js'
 import handlePageEnterAnimation from './handlePageEnter.js'
+import { isTablet } from '../../utilities/variables.js'
 
 let ctx
+
+const mm = gsap.matchMedia()
 
 function init(namespace) {
   const section = document.querySelector('[data-page-loader=section]')
@@ -29,12 +32,18 @@ function init(namespace) {
       tl.set(navBarMenu, { opacity: 0 })
       tl.set(menu, { pointerEvents: 'none' })
 
+      let duration = 2
+
+      mm.add(isTablet, () => {
+        duration = 3
+      })
+
       tl.to(hideLetters, {
         opacity: 0,
-        duration: 2,
+        duration: duration,
         stagger: { from: 'random', amount: 0.1 },
       })
-        .fromTo(hideLetters, { width: '100%' }, { width: '0%', duration: 2, ease: 'expo.out' }, '<+15%')
+        .fromTo(hideLetters, { width: '100%' }, { width: '0%', duration: duration, ease: 'power4.out' }, '<')
         .to(element, { yPercent: -100, duration: 1 }, '>-15%')
         .call(
           () => {

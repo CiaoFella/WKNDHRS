@@ -12,12 +12,8 @@ const lazyLoadInstance = new LazyLoad({
 
 window.onload = () => {
   const videos = document.querySelectorAll('video[data-src]')
-  let delay = 0
   videos.forEach(video => {
-    setTimeout(() => {
-      loadVideo(video)
-    }, delay)
-    delay += 500 // Adjust the delay as needed
+    loadVideo(video)
   })
 }
 
@@ -37,7 +33,6 @@ function loadVideo(video) {
 
   // Add an event listener to autoplay once the video is loaded
   video.addEventListener('loadeddata', () => {
-    console.log('loaded')
     video.play()
   })
 }

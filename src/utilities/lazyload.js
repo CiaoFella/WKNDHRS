@@ -1,23 +1,44 @@
 import { LazyLoad } from '../vendor.js'
+import { gsap } from '../vendor.js'
+import { isMobile } from './variables.js'
 
-let activeVideos = 0
-const maxActiveVideos = 2 // Adjust as necessary
-
+// Initialize LazyLoad
 const lazyLoadInstance = new LazyLoad({
   elements_selector: 'video[data-src]',
   callback_enter: video => {
-    if (activeVideos < maxActiveVideos) {
-      loadVideo(video)
-    }
+    // By default, do nothing on enter
   },
 })
 
+window.onload = () => {
+  const videos = document.querySelectorAll('video[data-src]')
+  let delay = 0
+  videos.forEach(video => {
+    setTimeout(() => {
+      loadVideo(video)
+    }, delay)
+    delay += 500 // Adjust the delay as needed
+  })
+}
+
 function loadVideo(video) {
-  activeVideos++
-  video.src = video.dataset.src
+  const mm = gsap.matchMedia()
+
+  mm.add(isMobile, () => {
+    // Mobile version: Check and load data-src-mobile if available
+    const mobileSrc = video.dataset.srcMobile
+    video.src = mobileSrc ? mobileSrc : video.dataset.src
+  })
+
+  mm.add(!isMobile, () => {
+    // Desktop and tablet version: Load the normal data-src video
+    video.src = video.dataset.src
+  })
+
+  // Add an event listener to autoplay once the video is loaded
   video.addEventListener('loadeddata', () => {
+    console.log('loaded')
     video.play()
-    activeVideos--
   })
 }
 

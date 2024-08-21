@@ -54,6 +54,7 @@ const initialPageName = document.querySelector('[data-barba="container"]').datas
 loadPageModule(initialPageName)
 pageLoader.init(initialPageName)
 createSplitTypes.init()
+autoPlayVideosInView()
 
 document.addEventListener('onPageReady', event => {
   if (event.detail === true) {

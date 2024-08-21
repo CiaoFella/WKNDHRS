@@ -68,11 +68,18 @@ export function autoPlayVideosInView() {
     ScrollTrigger.create({
       trigger: vid,
       start: 'top bottom',
+      end: 'bottom top',
       onEnter: () => {
-        const playPromise = vid.play()
-        if (playPromise !== undefined) {
-          playPromise.catch(error => {})
-        }
+        vid.play()
+      },
+      onEnterBack: () => {
+        vid.play()
+      },
+      onLeave: () => {
+        vid.pause()
+      },
+      onLeaveBack: () => {
+        vid.pause()
       },
     })
   })

@@ -7,15 +7,10 @@ const lazyLoadInstance = new LazyLoad({
     // Load video source
     video.src = video.dataset.src
 
-    console.log(video.src)
-
     // Add an event listener to autoplay once the video is loaded
     video.addEventListener('loadeddata', () => {
-      console.log(`loaded: ${video.dataset.src}`)
-      if (video.readyState >= 1) {
-        // Ensure the video is sufficiently buffered
-        video.play()
-      }
+      // Ensure the video is sufficiently buffered
+      video.play()
     })
   },
 })

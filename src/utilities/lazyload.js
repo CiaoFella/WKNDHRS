@@ -1,18 +1,24 @@
 import { LazyLoad } from '../vendor.js'
 
-// Initialize LazyLoad
+let activeVideos = 0
+const maxActiveVideos = 2 // Adjust as necessary
+
 const lazyLoadInstance = new LazyLoad({
   elements_selector: 'video[data-src]',
   callback_enter: video => {
-    // Load video source
-    video.src = video.dataset.src
-
-    // Add an event listener to autoplay once the video is loaded
-    video.addEventListener('loadeddata', () => {
-      // Ensure the video is sufficiently buffered
-      video.play()
-    })
+    if (activeVideos < maxActiveVideos) {
+      loadVideo(video)
+    }
   },
 })
+
+function loadVideo(video) {
+  activeVideos++
+  video.src = video.dataset.src
+  video.addEventListener('loadeddata', () => {
+    video.play()
+    activeVideos--
+  })
+}
 
 export default lazyLoadInstance

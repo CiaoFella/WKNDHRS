@@ -23,8 +23,6 @@ function init() {
 
       scrubTl.to(list, { scale: 0.95, duration: 1 })
 
-      const mm = gsap.matchMedia()
-
       items.forEach((item, index) => {
         const headline = item.querySelector('[data-scroll-selected-work=headline]')
         const category = item.querySelector('[data-scroll-selected-work=category]')

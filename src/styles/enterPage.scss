@@ -15,5 +15,9 @@
 
     [data-enter-contact=paragraph] .line {
         clip-path: polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%);
+        @media screen and (max-width: variables.$breakpoint-tablet) {
+            clip-path: variables.$fullclipPath;
+            opacity: 0;
+        }
     }
 }

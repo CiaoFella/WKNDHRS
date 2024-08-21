@@ -1,4 +1,4 @@
-import { fullClipPath, isDesktop, isTablet, topClipPath } from '../../utilities/variables.js'
+import { fullClipPath, isDesktop, isMobile, isTablet, topClipPath } from '../../utilities/variables.js'
 import { gsap, SplitType, ScrollTrigger } from '../../vendor.js'
 
 const mm = gsap.matchMedia()
@@ -10,11 +10,16 @@ export default function handlePageEnterAnimation(currentPage) {
   const text = document.querySelectorAll('[data-enter-page=text]')
 
   if (titles && titles.length > 0) {
-    tl.fromTo(
-      titles,
-      { clipPath: topClipPath, y: 100 },
-      { clipPath: fullClipPath, y: 0, stagger: 0.1, duration: 1, ease: 'expo.out' }
-    )
+    mm.add(isTablet, () => {
+      tl.fromTo(titles, { opacity: 0, y: 50 }, { opacity: 1, y: 0, stagger: 0.1, duration: 1, ease: 'expo.out' })
+    })
+    mm.add(isDesktop, () => {
+      tl.fromTo(
+        titles,
+        { clipPath: topClipPath, y: 100 },
+        { clipPath: fullClipPath, y: 0, stagger: 0.1, duration: 1, ease: 'expo.out' }
+      )
+    })
   }
   if (text && text.length > 0) {
     const textSplit = new SplitType(text, {
@@ -56,12 +61,23 @@ export default function handlePageEnterAnimation(currentPage) {
       const elements = section.querySelectorAll('[data-enter-contact=element]')
       const paragraph = section.querySelector('[data-enter-contact=paragraph]')
 
-      tl.to(elements, { y: 0, stagger: 0.05 }, '<+0.1').fromTo(
-        paragraph.querySelectorAll('.line'),
-        { clipPath: topClipPath, yPercent: 50 },
-        { clipPath: fullClipPath, yPercent: 0, stagger: 0.1 },
-        '<+0.5'
-      )
+      mm.add(isTablet, () => {
+        tl.to(elements, { y: 0, stagger: 0.05 }, '<+0.1').fromTo(
+          paragraph.querySelectorAll('.line'),
+          { opacity: 0, yPercent: 50 },
+          { opacity: 1, yPercent: 0, stagger: 0.1 },
+          '<+0.5'
+        )
+      })
+
+      mm.add(isDesktop, () => {
+        tl.to(elements, { y: 0, stagger: 0.05 }, '<+0.1').fromTo(
+          paragraph.querySelectorAll('.line'),
+          { clipPath: topClipPath, yPercent: 50 },
+          { clipPath: fullClipPath, yPercent: 0, stagger: 0.1 },
+          '<+0.5'
+        )
+      })
     }
   }
 

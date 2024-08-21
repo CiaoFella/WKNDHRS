@@ -2,7 +2,7 @@ import { gsap, ScrollTrigger } from '../../vendor.js'
 
 let ctx
 
-function init(namespace) {
+function init() {
   const section = document.querySelector('[data-scroll-nav-logo=section]')
   const logo = document.querySelector('[data-logo=wrap]')
   ctx = gsap.context(() => {
@@ -24,8 +24,10 @@ function init(namespace) {
 }
 
 function cleanup() {
+  const allTrigger = ScrollTrigger.getAll()
   if (ctx) {
     ctx.revert()
+    console.log(allTrigger)
   }
 }
 

@@ -36,24 +36,24 @@ function init() {
         const boxImg = item.querySelector('[data-scroll-selected-work=box-img]')
         const boxVideo = item.querySelector('[data-scroll-selected-work=box-video]')
 
-        // Variable to store the video element when it's removed
-        let storedBoxVideo = null
+        // // Variable to store the video element when it's removed
+        // let storedBoxVideo = boxVideo
 
-        // GSAP MatchMedia to handle different viewport sizes
-        mm.add(isTablet, () => {
-          // Remove boxVideo from the DOM on tablet
-          if (boxVideo) {
-            storedBoxVideo = boxVideo // Store the reference
-            boxVideo.remove() // Remove from DOM
-          }
-        })
+        // // GSAP MatchMedia to handle different viewport sizes
+        // mm.add(isTablet, () => {
+        //   // Remove boxVideo from the DOM on tablet
+        //   if (boxVideo) {
+        //     storedBoxVideo = boxVideo // Store the reference
+        //     boxVideo.remove() // Remove from DOM
+        //   }
+        // })
 
-        mm.add(isDesktop, () => {
-          // Re-append boxVideo to the DOM on desktop if it was removed
-          if (storedBoxVideo && !box.contains(storedBoxVideo)) {
-            box.appendChild(storedBoxVideo) // Re-append to the original parent
-          }
-        })
+        // mm.add(isDesktop, () => {
+        //   // Re-append boxVideo to the DOM on desktop if it was removed
+        //   if (storedBoxVideo && !box.contains(storedBoxVideo)) {
+        //     box.appendChild(storedBoxVideo) // Re-append to the original parent
+        //   }
+        // })
 
         const revealTl = gsap.timeline({
           paused: true,
@@ -76,7 +76,7 @@ function init() {
           .fromTo(headline, { yPercent: 100 }, { yPercent: 0, ease: 'expo.inOut' }, '<')
           .fromTo(category, { yPercent: 100 }, { yPercent: 0, ease: 'expo.inOut' }, '<')
           .fromTo(
-            [boxImg, storedBoxVideo, boxTitle],
+            [boxImg, boxVideo, boxTitle],
             { clipPath: bottomClipPath },
             { clipPath: fullClipPath, ease: 'expo.inOut' },
             '<'

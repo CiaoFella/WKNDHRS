@@ -54,7 +54,7 @@ const initialPageName = document.querySelector('[data-barba="container"]').datas
 loadPageModule(initialPageName)
 pageLoader.init(initialPageName)
 createSplitTypes.init()
-autoPlayVideosInView()
+// autoPlayVideosInView()
 
 document.addEventListener('onPageReady', event => {
   if (event.detail === true) {
@@ -70,7 +70,7 @@ barba.hooks.beforeEnter(({ next }) => {
 barba.hooks.after(({ next }) => {
   const pageName = next.namespace
   lenis.scrollTo(0, { duration: 0, immediate: true })
-  autoPlayVideosInView()
+  // autoPlayVideosInView()
   normalizeLogo(pageName)
   loadPageModule(pageName)
   createSplitTypes.init()

@@ -7,7 +7,7 @@ import scrollSelectedWork from '../animations/scrollSelectedWork.js'
 function init() {
   scrollLogo.init()
   scrollVisual.init()
-  // scrollSelectedWork.init()
+  scrollSelectedWork.init()
   scrollService.init()
   shared.init()
 }
@@ -15,7 +15,7 @@ function init() {
 function cleanup() {
   scrollLogo.cleanup()
   scrollVisual.cleanup()
-  // scrollSelectedWork.cleanup()
+  scrollSelectedWork.cleanup()
   scrollService.cleanup()
   shared.cleanup()
 }

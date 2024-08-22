@@ -12,6 +12,7 @@ export function changeResponsiveVideoSrc() {
       if (video.getAttribute('src') !== desktopSrc) {
         video.setAttribute('src', desktopSrc)
         video.load() // Ensure the new source is loaded
+        video.play()
       }
     })
   })
@@ -22,6 +23,7 @@ export function changeResponsiveVideoSrc() {
       if (video.getAttribute('src') !== srcMobile) {
         video.setAttribute('src', srcMobile)
         video.load() // Ensure the new source is loaded
+        video.play()
       }
     })
   })

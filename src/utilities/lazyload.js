@@ -1,6 +1,31 @@
 import { LazyLoad } from '../vendor.js'
 import { gsap } from '../vendor.js'
-import { isMobile } from './variables.js'
+import { isDesktop, isMobile } from './variables.js'
+
+const mm = gsap.matchMedia()
+
+export function changeResponsiveVideoSrc() {
+  mm.add(isDesktop, () => {
+    console.log('!isMobile')
+    document.querySelectorAll('video[src-mobile]').forEach(video => {
+      const desktopSrc = video.getAttribute('src-desktop')
+      if (video.getAttribute('src') !== desktopSrc) {
+        video.setAttribute('src', desktopSrc)
+        video.load() // Ensure the new source is loaded
+      }
+    })
+  })
+
+  mm.add(isMobile, () => {
+    document.querySelectorAll('video[src-mobile]').forEach(video => {
+      const srcMobile = video.getAttribute('src-mobile')
+      if (video.getAttribute('src') !== srcMobile) {
+        video.setAttribute('src', srcMobile)
+        video.load() // Ensure the new source is loaded
+      }
+    })
+  })
+}
 
 // Initialize LazyLoad
 const lazyLoadInstance = new LazyLoad({

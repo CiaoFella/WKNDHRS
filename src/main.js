@@ -6,7 +6,7 @@ import { autoPlayVideosInView, getCurrentPage, normalizeLogo } from './utilities
 import createSplitTypes from './utilities/createSplitTypes.js'
 import lenis from './utilities/smoothScroll.js'
 import handlePageEnterAnimation from './animations/general/handlePageEnter.js'
-import lazyLoadInstance from './utilities/lazyload.js'
+import lazyLoadInstance, { changeResponsiveVideoSrc } from './utilities/lazyload.js'
 
 gsap.registerPlugin(ScrollTrigger)
 menu.init()
@@ -56,6 +56,7 @@ loadPageModule(initialPageName)
 pageLoader.init(initialPageName)
 createSplitTypes.init()
 lazyLoadInstance.update()
+changeResponsiveVideoSrc()
 
 document.addEventListener('onPageReady', event => {
   if (event.detail === true) {
@@ -75,4 +76,5 @@ barba.hooks.after(({ next }) => {
   loadPageModule(pageName)
   createSplitTypes.init()
   lazyLoadInstance.update()
+  changeResponsiveVideoSrc()
 })

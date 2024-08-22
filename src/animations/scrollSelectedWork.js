@@ -85,22 +85,26 @@ function init() {
           const prevHeadline = items[index - 1].querySelector('[data-scroll-selected-work=headline]')
           const prevCategory = items[index - 1].querySelector('[data-scroll-selected-work=category]')
           revealTl
-            .to(prevHeadline, { yPercent: -100, ease: 'expo.inOut' }, '<')
-            .to(prevCategory, { yPercent: -100, ease: 'expo.inOut' }, '<')
+            .fromTo(prevHeadline, { yPercent: 0 }, { yPercent: -100, ease: 'expo.inOut' }, '<')
+            .fromTo(prevCategory, { yPercent: 0 }, { yPercent: -100, ease: 'expo.inOut' }, '<')
         }
 
         const triggerHeight = section.offsetHeight / items.length
 
         ScrollTrigger.create({
           trigger: section,
+          animation: revealTl,
           start: () => `${index * triggerHeight} center`,
           end: 'bottom bottom',
           onEnter: () => {
-            revealTl.play()
+            const nextItems = [...items].slice(index + 1)
+            nextItems.forEach(item => {
+              const nextHeadline = item.querySelectorAll('[data-scroll-selected-work=headline]')
+              gsap.set(nextHeadline, { yPercent: 100 })
+            })
           },
-          onLeaveBack: () => {
-            revealTl.reverse()
-          },
+          toggleActions: 'play none none reverse',
+          preventOverlaps: true,
         })
 
         hoverTl.to(boxImg, { opacity: 0, ease: 'expo.inOut' })

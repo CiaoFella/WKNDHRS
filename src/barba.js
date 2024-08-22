@@ -6,7 +6,7 @@ import { gsap, barba, ScrollTrigger } from './vendor.js'
 gsap.registerPlugin(ScrollTrigger)
 
 barba.init({
-  preventRunning: true,
+  preventRunning: false,
   transitions: [
     {
       name: 'default-transition',

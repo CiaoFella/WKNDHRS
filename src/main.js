@@ -6,7 +6,7 @@ import { getCurrentPage, initCopyTextToClipboard, normalizeLogo } from './utilit
 import createSplitTypes from './utilities/createSplitTypes.js'
 import lenis from './utilities/smoothScroll.js'
 import handlePageEnterAnimation from './animations/general/handlePageEnter.js'
-import lazyLoadInstance, { changeResponsiveVideoSrc } from './utilities/lazyload.js'
+import lazyLoadInstance, { changeResponsiveVideoSrc } from './utilities/handleVideos.js'
 
 gsap.registerPlugin(ScrollTrigger)
 menu.init()

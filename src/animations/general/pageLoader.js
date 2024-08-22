@@ -41,9 +41,8 @@ function init(namespace) {
       tl.to(hideLetters, {
         opacity: 0,
         duration: duration,
-        stagger: { from: 'random', amount: 0.1 },
       })
-        .fromTo(hideLetters, { width: '100%' }, { width: '0%', duration: duration, ease: 'power4.out' }, '<')
+        .fromTo(hideLetters, { width: '100%' }, { width: '0%', duration: duration, ease: 'power4.out' }, '<-0.5')
         .to(element, { yPercent: -100, duration: 1 }, '>-15%')
         .call(
           () => {

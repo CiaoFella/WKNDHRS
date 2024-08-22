@@ -90,3 +90,36 @@ export function getCurrentPage() {
 
   return currentPage
 }
+
+export function initCopyTextToClipboard() {
+  const elements = document.querySelectorAll('[data-copy=element]')
+  elements.forEach(element => {
+    element.addEventListener('click', event => {
+      event.preventDefault()
+      const text = element.textContent
+      if (!navigator.clipboard) {
+        return
+      }
+      navigator.clipboard
+        .writeText(text)
+        .then(() => {
+          console.log('Async: Copying to clipboard was successful!')
+        })
+        .catch(err => {
+          console.error('Async: Could not copy text: ', err)
+        })
+
+      // I want to have a visual feedback that the text was copied
+      const copyTextTemp = document.createElement('div')
+      copyTextTemp.classList.add('u-text')
+      copyTextTemp.textContent = 'Copied!'
+      element.after(copyTextTemp)
+      const copyTextTl = gsap.timeline({ defaults: { duration: 0.5, ease: 'expo.out' } })
+
+      copyTextTl
+        .fromTo(copyTextTemp, { opacity: 0, yPercent: 50 }, { opacity: 1, yPercent: 0 })
+        .to(copyTextTemp, { opacity: 0, yPercent: -50, ease: 'expo.in' }, '>+1')
+        .call(() => copyTextTemp.remove())
+    })
+  })
+}

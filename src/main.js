@@ -2,7 +2,7 @@ import { gsap, ScrollTrigger } from './vendor.js'
 import barba from './barba.js'
 import menu from './animations/general/menu.js'
 import pageLoader from './animations/general/pageLoader.js'
-import { autoPlayVideosInView, getCurrentPage, normalizeLogo } from './utilities/helper.js'
+import { getCurrentPage, initCopyTextToClipboard, normalizeLogo } from './utilities/helper.js'
 import createSplitTypes from './utilities/createSplitTypes.js'
 import lenis from './utilities/smoothScroll.js'
 import handlePageEnterAnimation from './animations/general/handlePageEnter.js'
@@ -57,6 +57,7 @@ pageLoader.init(initialPageName)
 createSplitTypes.init()
 lazyLoadInstance.update()
 changeResponsiveVideoSrc()
+initCopyTextToClipboard()
 
 document.addEventListener('onPageReady', event => {
   if (event.detail === true) {
@@ -77,4 +78,5 @@ barba.hooks.after(({ next }) => {
   createSplitTypes.init()
   lazyLoadInstance.update()
   changeResponsiveVideoSrc()
+  initCopyTextToClipboard()
 })

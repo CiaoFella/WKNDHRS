@@ -112,6 +112,9 @@ export function initCopyTextToClipboard() {
       // I want to have a visual feedback that the text was copied
       const copyTextTemp = document.createElement('div')
       copyTextTemp.classList.add('u-text')
+      copyTextTemp.style.position = 'absolute'
+      copyTextTemp.style.bottom = '0'
+      copyTextTemp.style.left = '0'
       copyTextTemp.textContent = 'Copied!'
       element.after(copyTextTemp)
       const copyTextTl = gsap.timeline({ defaults: { duration: 0.5, ease: 'expo.out' } })
@@ -119,7 +122,7 @@ export function initCopyTextToClipboard() {
       copyTextTl
         .fromTo(copyTextTemp, { opacity: 0, yPercent: 50 }, { opacity: 1, yPercent: 0 })
         .to(copyTextTemp, { opacity: 0, yPercent: -50, ease: 'expo.in' }, '>+1')
-        .call(() => copyTextTemp.remove())
+        .call(() => copyTextTemp.remove(), [], '>+0.5')
     })
   })
 }

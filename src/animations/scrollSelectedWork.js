@@ -21,7 +21,7 @@ function init() {
         scrub: 1,
       })
 
-      scrubTl.to(list, { scale: 0.95, duration: 1 })
+      scrubTl.to(list, { scale: 0.85, duration: 1 })
 
       items.forEach((item, index) => {
         const headline = item.querySelector('[data-scroll-selected-work=headline]')

@@ -20,7 +20,7 @@ barba.init({
       name: 'default-transition',
       sync: true,
       leave(data) {
-        const tl = gsap.timeline({ defaults: { duration: 0.75, ease: 'power2.out' } })
+        const tl = gsap.timeline({ defaults: { duration: 0.5, ease: 'power2.out' } })
         const done = this.async()
         const transitionBg = document.querySelector('[data-animate=transition-bg]')
         proxy.pageReady = false
@@ -29,13 +29,13 @@ barba.init({
         tl.to(
           data.current.container,
           {
-            scale: 1.05,
+            scale: 1.02,
             opacity: 0.7,
             transformOrigin: '50% 0%',
             force3D: true,
-            duration: 1,
+            duration: 1.5,
             filter: 'grayscale(100%)',
-            ease: 'power1.in',
+            ease: 'power1.inOut',
           },
           0
         )
@@ -46,7 +46,7 @@ barba.init({
         const transitionBg = document.querySelector('[data-animate=transition-bg]')
         const currentViewportHeight = window.innerHeight
         console.log(currentViewportHeight)
-        const enterTl = gsap.timeline({ defaults: { duration: 0.75, ease: 'power2.out' } })
+        const enterTl = gsap.timeline({ defaults: { duration: 0.5, ease: 'power2.out' } })
         gsap.set(transitionBg, { display: 'block' })
         enterTl
           .to(transitionBg, { scaleY: 0, transformOrigin: '50% 100%' }, 0)
@@ -58,7 +58,7 @@ barba.init({
             {
               clipPath: `polygon(0% 0%, 100% 0%, 100% ${currentViewportHeight}px, 0% ${currentViewportHeight}px)`,
               onComplete: () => {
-                gsap.set(data.next.container, { height: 'auto' })
+                gsap.set(data.next.container, { clipPath: fullClipPath })
               },
             },
             '<'

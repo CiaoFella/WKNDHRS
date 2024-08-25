@@ -42,7 +42,7 @@ function init(namespace) {
         opacity: 0,
         duration: duration,
       })
-        .fromTo(hideLetters, { width: '100%' }, { width: '0%', duration: duration, ease: 'power4.out' }, '<-0.5')
+        .fromTo(hideLetters, { width: '100%' }, { width: '0%', duration: duration, ease: 'power4.out' }, '<-10%')
         .to(element, { yPercent: -100, duration: 1 }, '>-15%')
         .call(
           () => {

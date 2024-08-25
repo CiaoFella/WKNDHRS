@@ -1,4 +1,4 @@
-import { fullClipPath, isDesktop, isMobile, isTablet, topClipPath } from '../../utilities/variables.js'
+import { fullClipPath, isDesktop, isTablet, topClipPath } from '../../utilities/variables.js'
 import { gsap, SplitType, ScrollTrigger } from '../../vendor.js'
 
 const mm = gsap.matchMedia()
@@ -35,7 +35,8 @@ export default function handlePageEnterAnimation(currentPage) {
           stagger: 0.1,
           duration: 1,
           onComplete: () => ScrollTrigger.refresh(),
-        }
+        },
+        '<+0.1'
       )
     })
     mm.add(isDesktop, () => {
@@ -49,7 +50,8 @@ export default function handlePageEnterAnimation(currentPage) {
           duration: 1,
           ease: 'expo.out',
           onComplete: () => ScrollTrigger.refresh(),
-        }
+        },
+        '<+0.1'
       )
     })
   }

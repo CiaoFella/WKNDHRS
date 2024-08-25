@@ -40,10 +40,6 @@ function init() {
           const subTl = gsap.timeline()
           const subScrollSection = document.querySelector('[data-scroll-hero=section]')
           const subScrollTitle = section.querySelector('[data-scroll-hero=title]')
-          const subScrollText = section.querySelector('[data-scroll-hero=text]')
-          const subTextSplit = new SplitType(subScrollText, {
-            type: 'lines',
-          })
 
           ScrollTrigger.create({
             trigger: subScrollSection,
@@ -72,36 +68,6 @@ function init() {
             },
             '<'
           )
-
-          mm.add(isTablet, () => {
-            subTl.fromTo(
-              subTextSplit.lines,
-              { opacity: 0, yPercent: 150 },
-              {
-                opacity: 1,
-                yPercent: 0,
-                duration: 0.5,
-                stagger: 0.05,
-                ease: 'power2.out',
-              },
-              '<'
-            )
-          })
-
-          mm.add(isDesktop, () => {
-            subTl.fromTo(
-              subTextSplit.lines,
-              { clipPath: topClipPath, yPercent: 150 },
-              {
-                clipPath: fullClipPath,
-                yPercent: 0,
-                duration: 0.5,
-                stagger: 0.05,
-                ease: 'power2.out',
-              },
-              '<'
-            )
-          })
 
           break
 

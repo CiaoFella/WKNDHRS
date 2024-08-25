@@ -100,7 +100,8 @@ function init() {
             const nextItems = [...items].slice(index + 1)
             nextItems.forEach(item => {
               const nextHeadline = item.querySelectorAll('[data-scroll-selected-work=headline]')
-              gsap.set(nextHeadline, { yPercent: 100 })
+              const nextCategory = item.querySelectorAll('[data-scroll-selected-work=category]')
+              gsap.set([nextHeadline, nextCategory], { yPercent: 100 })
             })
           },
           toggleActions: 'play none none reverse',

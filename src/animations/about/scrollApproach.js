@@ -90,17 +90,33 @@ function init() {
           const prevHeadlineLines = headlines[index - 1].querySelectorAll('.line')
           const prevNumber = numbers[index - 1]
 
-          listEnterTl.to(prevHeadlineLines, { yPercent: -headlineYPercent, stagger: 0.1 }, 0)
-          listEnterTl.to(prevNumber, { yPercent: -100 }, '<')
+          listEnterTl
+            .fromTo(prevHeadlineLines, { yPercent: 0 }, { yPercent: -headlineYPercent, stagger: 0.1 }, 0)
+            .fromTo(prevNumber, { yPercent: 0 }, { yPercent: -100 }, '<')
         }
 
         ScrollTrigger.create({
           trigger: list,
           animation: listScrubTl,
-          start: 'top center',
+          start: 'top bottom',
           end: 'top top',
           scrub: 1,
+          preventOverlaps: self => {
+            self.getTrailing().forEach(trigger => {
+              trigger.endAnimation()
+            })
+          },
+          fastScrollEnd: 100,
           onEnter: () => {
+            const nextHeadlines = [...headlines].slice(index + 1)
+            const nextNumbers = [...numbers].slice(index + 1)
+            nextHeadlines.forEach(nextHeadline => {
+              const nextHeadlineLines = nextHeadline.querySelectorAll('.line')
+              gsap.set(nextHeadlineLines, { yPercent: headlineYPercent })
+            })
+            nextNumbers.forEach(nextNumber => {
+              gsap.set(nextNumber, { yPercent: 100 })
+            })
             listEnterTl.play()
           },
           onLeaveBack: () => {

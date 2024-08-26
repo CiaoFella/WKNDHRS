@@ -73,7 +73,7 @@ function init() {
             },
             '<+0.2'
           )
-          .to(list, { opacity: 1, duration: 0.25, ease: 'power2.inOut' }, '<+0.1')
+          .to(list, { opacity: 1, duration: 0.25, ease: 'power2.inOut' }, '<+0.2')
           .to(
             numbers[index],
             {

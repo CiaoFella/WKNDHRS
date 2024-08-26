@@ -2,7 +2,13 @@ import { gsap, ScrollTrigger } from './vendor.js'
 import barba from './barba.js'
 import menu from './animations/general/menu.js'
 import pageLoader from './animations/general/pageLoader.js'
-import { getCurrentPage, handleResponsiveElements, initCopyTextToClipboard, normalizeLogo } from './utilities/helper.js'
+import {
+  getCurrentPage,
+  handleResponsiveElements,
+  initCopyTextToClipboard,
+  normalizeLogo,
+  updateCurrentNavLink,
+} from './utilities/helper.js'
 import createSplitTypes from './utilities/createSplitTypes.js'
 import lenis from './utilities/smoothScroll.js'
 import handlePageEnterAnimation from './animations/general/handlePageEnter.js'
@@ -24,7 +30,6 @@ function cleanupCurrentModule() {
   // Reset the current animation module reference
   currentAnimationModule = null
 }
-
 function getBaseUrl() {
   const script = document.querySelector('script[src*="main.js"]')
   const scriptSrc = script?.src || ''
@@ -65,15 +70,16 @@ document.addEventListener('onPageReady', event => {
   }
 })
 
-barba.hooks.beforeEnter(({ next }) => {
+barba.hooks.beforeEnter(() => {
   cleanupCurrentModule()
   createSplitTypes.cleanup()
   cleanupVideos()
 })
 
-barba.hooks.after(({ next }) => {
-  const pageName = next.namespace
+barba.hooks.after(data => {
+  const pageName = data.next.namespace
   lenis.scrollTo(0, { duration: 0, immediate: true })
+  updateCurrentNavLink()
   normalizeLogo(pageName)
   loadPageModule(pageName)
   createSplitTypes.init()

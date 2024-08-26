@@ -173,3 +173,17 @@ export function handleResponsiveElements() {
     })
   }
 }
+
+export function updateCurrentNavLink() {
+  const currentPath = window.location.pathname
+
+  document.querySelectorAll('a').forEach(link => {
+    const href = link.getAttribute('href')
+
+    if (href === currentPath || href === currentPath + '/') {
+      link.classList.add('w--current') // Webflow uses 'w--current' for the 'current' class
+    } else {
+      link.classList.remove('w--current')
+    }
+  })
+}

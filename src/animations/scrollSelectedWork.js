@@ -18,7 +18,7 @@ function init() {
       ScrollTrigger.create({
         trigger: section,
         animation: scrubTl,
-        start: 'top center',
+        start: 'top 75%',
         end: 'top top',
         scrub: 1,
       })
@@ -77,7 +77,7 @@ function init() {
         ScrollTrigger.create({
           trigger: section,
           animation: revealTl,
-          start: () => `${index * triggerHeight} center`,
+          start: () => `${index * triggerHeight} bottom`,
           end: 'bottom bottom',
           onEnter: () => {
             const nextItems = [...items].slice(index + 1)
@@ -88,7 +88,7 @@ function init() {
             })
           },
           toggleActions: 'play none none reverse',
-          preventOverlaps: true,
+          preventOverlaps: 'selectedWork',
         })
 
         mm.add(isDesktop, () => {

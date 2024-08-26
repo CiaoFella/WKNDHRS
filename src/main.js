@@ -6,7 +6,7 @@ import { getCurrentPage, handleResponsiveElements, initCopyTextToClipboard, norm
 import createSplitTypes from './utilities/createSplitTypes.js'
 import lenis from './utilities/smoothScroll.js'
 import handlePageEnterAnimation from './animations/general/handlePageEnter.js'
-import lazyLoadInstance, { changeResponsiveVideoSrc } from './utilities/handleVideos.js'
+import lazyLoadInstance, { cleanupVideos, initializeResponsiveVideos } from './utilities/handleVideos.js'
 
 gsap.registerPlugin(ScrollTrigger)
 menu.init()
@@ -53,11 +53,10 @@ function loadPageModule(pageName) {
 // Load the initial page module
 const initialPageName = document.querySelector('[data-barba="container"]').dataset.barbaNamespace
 loadPageModule(initialPageName)
+initializeResponsiveVideos()
 pageLoader.init(initialPageName)
 createSplitTypes.init()
-lazyLoadInstance.update()
 handleResponsiveElements()
-changeResponsiveVideoSrc()
 initCopyTextToClipboard()
 
 document.addEventListener('onPageReady', event => {
@@ -69,6 +68,7 @@ document.addEventListener('onPageReady', event => {
 barba.hooks.beforeEnter(({ next }) => {
   cleanupCurrentModule()
   createSplitTypes.cleanup()
+  cleanupVideos()
 })
 
 barba.hooks.after(({ next }) => {
@@ -78,7 +78,6 @@ barba.hooks.after(({ next }) => {
   loadPageModule(pageName)
   createSplitTypes.init()
   handleResponsiveElements()
-  lazyLoadInstance.update()
-  changeResponsiveVideoSrc()
+  initializeResponsiveVideos()
   initCopyTextToClipboard()
 })

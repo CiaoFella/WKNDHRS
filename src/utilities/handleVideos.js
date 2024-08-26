@@ -1,67 +1,56 @@
-import { LazyLoad } from '../vendor.js'
 import { gsap } from '../vendor.js'
 import { isDesktop, isMobile } from './variables.js'
 
 const mm = gsap.matchMedia()
 
-export function changeResponsiveVideoSrc() {
+export function initializeResponsiveVideos() {
   mm.add(isDesktop, () => {
-    console.log('!isMobile')
-    document.querySelectorAll('video[src-mobile]').forEach(video => {
-      const desktopSrc = video.getAttribute('src-desktop')
-      if (video.getAttribute('src') !== desktopSrc) {
-        video.setAttribute('src', desktopSrc)
-        video.load() // Ensure the new source is loaded
-        video.play()
-      }
-    })
+    loadVideosForScreen('src-desktop', 'src-mobile')
   })
 
   mm.add(isMobile, () => {
-    document.querySelectorAll('video[src-mobile]').forEach(video => {
-      const srcMobile = video.getAttribute('src-mobile')
-      if (video.getAttribute('src') !== srcMobile) {
-        video.setAttribute('src', srcMobile)
-        video.load() // Ensure the new source is loaded
-        video.play()
-      }
+    loadVideosForScreen('src-mobile', 'src-desktop')
+  })
+}
+
+function loadVideosForScreen(loadAttr, removeAttr) {
+  document.querySelectorAll(`video[${loadAttr}]`).forEach(video => {
+    const newSrc = video.getAttribute(loadAttr)
+    const currentSrc = video.getAttribute('src')
+
+    if (currentSrc !== newSrc) {
+      video.setAttribute('src', newSrc)
+      video.load()
+      video.play().catch(error => {
+        console.warn('Video play interrupted:', error.message)
+      })
+    }
+
+    video.removeAttribute(removeAttr)
+  })
+}
+
+export function cleanupVideos() {
+  document.querySelectorAll('video').forEach(video => {
+    video.pause()
+    video.removeAttribute('src')
+    video.load()
+  })
+
+  document.querySelectorAll('video').forEach(video => {
+    video.removeEventListener('loadeddata', handleLoadedData)
+  })
+
+  mm.clear()
+}
+
+export default { initializeResponsiveVideos, cleanupVideos }
+
+function handleLoadedData(event) {
+  const video = event.target
+  if (document.body.contains(video)) {
+    video.play().catch(error => {
+      console.warn('Video play interrupted:', error.message)
     })
-  })
+  }
 }
-
-// Initialize LazyLoad
-const lazyLoadInstance = new LazyLoad({
-  elements_selector: 'video[data-src]',
-  callback_enter: video => {
-    // By default, do nothing on enter
-  },
-})
-
-window.onload = () => {
-  const videos = document.querySelectorAll('video[data-src]')
-  videos.forEach(video => {
-    loadVideo(video)
-  })
-}
-
-function loadVideo(video) {
-  const mm = gsap.matchMedia()
-
-  mm.add(isMobile, () => {
-    // Mobile version: Check and load data-src-mobile if available
-    const mobileSrc = video.dataset.srcMobile
-    video.src = mobileSrc ? mobileSrc : video.dataset.src
-  })
-
-  mm.add(!isMobile, () => {
-    // Desktop and tablet version: Load the normal data-src video
-    video.src = video.dataset.src
-  })
-
-  // Add an event listener to autoplay once the video is loaded
-  video.addEventListener('loadeddata', () => {
-    video.play()
-  })
-}
-
-export default lazyLoadInstance

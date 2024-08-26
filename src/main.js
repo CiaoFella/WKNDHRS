@@ -12,7 +12,7 @@ import {
 import createSplitTypes from './utilities/createSplitTypes.js'
 import lenis from './utilities/smoothScroll.js'
 import handlePageEnterAnimation from './animations/general/handlePageEnter.js'
-import lazyLoadInstance, { cleanupVideos, initializeResponsiveVideos } from './utilities/handleVideos.js'
+import { cleanupVideos, initializeResponsiveVideos } from './utilities/handleVideos.js'
 
 gsap.registerPlugin(ScrollTrigger)
 menu.init()

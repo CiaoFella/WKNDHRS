@@ -23,9 +23,20 @@ function loadVideosForScreen(loadAttr, fallbackAttr) {
     if (standardSrc !== newSrc && newSrc) {
       video.setAttribute('src', newSrc)
       video.load()
-      video.play().catch(error => {
-        console.warn('Video play interrupted:', error.message)
-      })
+
+      if (isDesktop) {
+        video.play().catch(error => {
+          console.warn('Video play interrupted:', error.message)
+        })
+      } else if (isMobile) {
+        // On mobile, check for a user gesture before playing to avoid fullscreen issues
+        video.addEventListener('click', function handlePlayOnClick() {
+          video.play().catch(error => {
+            console.warn('Video play interrupted:', error.message)
+          })
+          video.removeEventListener('click', handlePlayOnClick)
+        })
+      }
     }
 
     if (primarySrc) {

@@ -79,11 +79,11 @@ barba.hooks.beforeEnter(() => {
 barba.hooks.after(data => {
   const pageName = data.next.namespace
   lenis.scrollTo(0, { duration: 0, immediate: true })
+  initializeResponsiveVideos()
   updateCurrentNavLink()
   normalizeLogo(pageName)
   loadPageModule(pageName)
   createSplitTypes.init()
   handleResponsiveElements()
-  initializeResponsiveVideos()
   initCopyTextToClipboard()
 })

@@ -14,13 +14,13 @@ export function initializeResponsiveVideos() {
 }
 
 function loadVideosForScreen(loadAttr, fallbackAttr) {
-  document.querySelectorAll(`video[${loadAttr}]`).forEach(video => {
+  document.querySelectorAll('video').forEach(video => {
     const primarySrc = video.getAttribute(loadAttr)
     const fallbackSrc = video.getAttribute(fallbackAttr)
-    const currentSrc = video.getAttribute('src')
-    const newSrc = primarySrc || fallbackSrc
+    const standardSrc = video.getAttribute('src')
+    const newSrc = primarySrc || fallbackSrc || standardSrc
 
-    if (currentSrc !== newSrc && newSrc) {
+    if (standardSrc !== newSrc && newSrc) {
       video.setAttribute('src', newSrc)
       video.load()
       video.play().catch(error => {
@@ -28,17 +28,24 @@ function loadVideosForScreen(loadAttr, fallbackAttr) {
       })
     }
 
-    if (fallbackSrc) {
+    if (primarySrc) {
       video.removeAttribute(fallbackAttr)
+    } else if (fallbackSrc) {
+      video.removeAttribute(loadAttr)
     }
   })
 }
 
 export function cleanupVideos() {
   document.querySelectorAll('video').forEach(video => {
-    video.pause()
-    video.removeAttribute('src')
-    video.load()
+    const hasDesktopSrc = video.hasAttribute('src-desktop')
+    const hasMobileSrc = video.hasAttribute('src-mobile')
+
+    if (hasDesktopSrc || hasMobileSrc) {
+      video.pause()
+      video.removeAttribute('src')
+      video.load()
+    }
   })
 
   document.querySelectorAll('video').forEach(video => {

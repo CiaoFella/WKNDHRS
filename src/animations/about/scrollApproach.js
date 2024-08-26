@@ -17,7 +17,6 @@ function init() {
     const lists = section.querySelectorAll('[data-scroll-approach=list]')
     const headlines = section.querySelectorAll('[data-scroll-approach=headline]')
     const numbers = section.querySelectorAll('[data-scroll-approach=number]')
-    const zero = section.querySelector('[data-scroll-approach=number-zero]')
     const visuals = section.querySelectorAll('[data-scroll-approach=visual]')
 
     ctx = gsap.context(() => {
@@ -62,7 +61,7 @@ function init() {
           headlineYPercent = 250
         })
         gsap.set(headlineSplit.lines, { yPercent: headlineYPercent })
-        gsap.set([numbers, zero], { yPercent: 100 })
+        gsap.set(numbers, { yPercent: 100 })
         gsap.set(lists, { opacity: 0.25 })
         listEnterTl
           .to(
@@ -82,18 +81,22 @@ function init() {
             '<'
           )
 
-        if (index === 0) {
-          listEnterTl.to(zero, { yPercent: 0 }, 0)
-        }
-
         if (index > 0) {
           const prevHeadlineLines = headlines[index - 1].querySelectorAll('.line')
           const prevNumber = numbers[index - 1]
 
           listEnterTl
-            .fromTo(prevHeadlineLines, { yPercent: 0 }, { yPercent: -headlineYPercent, stagger: 0.1 }, 0)
-            .fromTo(prevNumber, { yPercent: 0 }, { yPercent: -100 }, '<')
+            .fromTo(
+              prevHeadlineLines,
+              { yPercent: 0 },
+              { yPercent: -headlineYPercent, stagger: 0.1, immediateRender: false },
+              0
+            )
+            .fromTo(prevNumber, { yPercent: 0 }, { yPercent: -100, immediateRender: false }, '<')
         }
+
+        gsap.set(headlines[0].querySelectorAll('.line'), { yPercent: 0 })
+        gsap.set(numbers[0], { yPercent: 0 })
 
         ScrollTrigger.create({
           trigger: list,

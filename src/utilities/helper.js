@@ -140,17 +140,14 @@ export function handleResponsiveElements() {
   const removedElementsMap = new Map()
 
   mm.add(isTablet, () => {
-    console.log('isTablet matched')
     handleElementRemoval('tablet')
   })
 
   mm.add(isLandscape, () => {
-    console.log('isLandscape matched')
     handleElementRemoval('landscape')
   })
 
   mm.add(isMobile, () => {
-    console.log('isMobile matched')
     handleElementRemoval('mobile')
   })
 

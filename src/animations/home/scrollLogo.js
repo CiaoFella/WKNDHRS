@@ -27,7 +27,6 @@ function cleanup() {
   const allTrigger = ScrollTrigger.getAll()
   if (ctx) {
     ctx.revert()
-    console.log(allTrigger)
   }
 }
 

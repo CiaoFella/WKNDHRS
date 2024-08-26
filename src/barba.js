@@ -45,7 +45,6 @@ barba.init({
       after(data) {
         const transitionBg = document.querySelector('[data-animate=transition-bg]')
         const currentViewportHeight = window.innerHeight
-        console.log(currentViewportHeight)
         const enterTl = gsap.timeline({ defaults: { duration: 0.5, ease: 'power2.out' } })
         gsap.set(transitionBg, { display: 'block' })
         enterTl

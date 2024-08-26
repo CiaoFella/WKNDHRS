@@ -13,12 +13,14 @@ export function initializeResponsiveVideos() {
   })
 }
 
-function loadVideosForScreen(loadAttr, removeAttr) {
+function loadVideosForScreen(loadAttr, fallbackAttr) {
   document.querySelectorAll(`video[${loadAttr}]`).forEach(video => {
-    const newSrc = video.getAttribute(loadAttr)
+    const primarySrc = video.getAttribute(loadAttr)
+    const fallbackSrc = video.getAttribute(fallbackAttr)
     const currentSrc = video.getAttribute('src')
+    const newSrc = primarySrc || fallbackSrc
 
-    if (currentSrc !== newSrc) {
+    if (currentSrc !== newSrc && newSrc) {
       video.setAttribute('src', newSrc)
       video.load()
       video.play().catch(error => {
@@ -26,7 +28,9 @@ function loadVideosForScreen(loadAttr, removeAttr) {
       })
     }
 
-    video.removeAttribute(removeAttr)
+    if (fallbackSrc) {
+      video.removeAttribute(fallbackAttr)
+    }
   })
 }
 
@@ -43,8 +47,6 @@ export function cleanupVideos() {
 
   mm.clear()
 }
-
-export default { initializeResponsiveVideos, cleanupVideos }
 
 function handleLoadedData(event) {
   const video = event.target

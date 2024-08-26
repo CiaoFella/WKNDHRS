@@ -3,6 +3,8 @@ import { gsap, ScrollTrigger } from '../vendor.js'
 
 let ctx
 
+const mm = gsap.matchMedia()
+
 function init() {
   const section = document.querySelector('[data-scroll-selected-work=section]')
 
@@ -33,25 +35,6 @@ function init() {
         const boxTitle = item.querySelector('[data-scroll-selected-work=box-title]')
         const boxImg = item.querySelector('[data-scroll-selected-work=box-img]')
         const boxVideo = item.querySelector('[data-scroll-selected-work=box-video]')
-
-        // // Variable to store the video element when it's removed
-        // let storedBoxVideo = boxVideo
-
-        // // GSAP MatchMedia to handle different viewport sizes
-        // mm.add(isTablet, () => {
-        //   // Remove boxVideo from the DOM on tablet
-        //   if (boxVideo) {
-        //     storedBoxVideo = boxVideo // Store the reference
-        //     boxVideo.remove() // Remove from DOM
-        //   }
-        // })
-
-        // mm.add(isDesktop, () => {
-        //   // Re-append boxVideo to the DOM on desktop if it was removed
-        //   if (storedBoxVideo && !box.contains(storedBoxVideo)) {
-        //     box.appendChild(storedBoxVideo) // Re-append to the original parent
-        //   }
-        // })
 
         const revealTl = gsap.timeline({
           paused: true,
@@ -108,13 +91,15 @@ function init() {
           preventOverlaps: true,
         })
 
-        hoverTl.to(boxImg, { opacity: 0, ease: 'expo.inOut' })
+        mm.add(isDesktop, () => {
+          hoverTl.to(boxImg, { opacity: 0, ease: 'expo.inOut' })
 
-        box.addEventListener('mouseenter', () => {
-          hoverTl.play()
-        })
-        box.addEventListener('mouseleave', () => {
-          hoverTl.reverse()
+          box.addEventListener('mouseenter', () => {
+            hoverTl.play()
+          })
+          box.addEventListener('mouseleave', () => {
+            hoverTl.reverse()
+          })
         })
       })
     })

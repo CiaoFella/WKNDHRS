@@ -1,4 +1,5 @@
 import { gsap, ScrollTrigger } from '../vendor.js'
+import { isDesktop, isLandscape, isMobile, isTablet } from './variables.js'
 
 export function unwrapSpanAndPreserveClasses(element) {
   // Select all span elements inside the given element
@@ -125,4 +126,50 @@ export function initCopyTextToClipboard() {
         .call(() => copyTextTemp.remove(), [], '>+0.5')
     })
   })
+}
+
+let mm
+
+export function handleResponsiveElements() {
+  if (mm) {
+    mm.revert()
+  }
+
+  mm = gsap.matchMedia()
+
+  const removedElementsMap = new Map()
+
+  mm.add(isTablet, () => {
+    console.log('isTablet matched')
+    handleElementRemoval('tablet')
+  })
+
+  mm.add(isLandscape, () => {
+    console.log('isLandscape matched')
+    handleElementRemoval('landscape')
+  })
+
+  mm.add(isMobile, () => {
+    console.log('isMobile matched')
+    handleElementRemoval('mobile')
+  })
+
+  mm.add(isDesktop, () => {
+    return () => {}
+  })
+
+  function handleElementRemoval(breakpoint) {
+    document.querySelectorAll('[data-remove]').forEach(el => {
+      const removeAt = el.getAttribute('data-remove') // e.g., "tablet", "landscape", "mobile"
+      const parent = el.parentNode
+      const nextSibling = el.nextElementSibling
+
+      if (removeAt === breakpoint) {
+        if (!removedElementsMap.has(el)) {
+          removedElementsMap.set(el, { parent, nextSibling })
+          parent.removeChild(el)
+        }
+      }
+    })
+  }
 }

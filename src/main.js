@@ -13,7 +13,6 @@ import createSplitTypes from './utilities/createSplitTypes.js'
 import lenis from './utilities/smoothScroll.js'
 import handlePageEnterAnimation from './animations/general/handlePageEnter.js'
 import { cleanupVideos, initializeResponsiveVideos } from './utilities/handleVideos.js'
-import { isDesktop } from './utilities/variables.js'
 import { cursor, magneticCursor } from './utilities/customCursor/customCursor.js'
 
 gsap.registerPlugin(ScrollTrigger)
@@ -61,13 +60,12 @@ function loadPageModule(pageName) {
 
 // Load the initial page module
 const initialPageName = document.querySelector('[data-barba="container"]').dataset.barbaNamespace
+createSplitTypes.init()
 loadPageModule(initialPageName)
 initializeResponsiveVideos()
 pageLoader.init(initialPageName)
-createSplitTypes.init()
 handleResponsiveElements()
 initCopyTextToClipboard()
-console.log(cursor)
 cursor.init()
 magneticCursor()
 
@@ -77,20 +75,23 @@ document.addEventListener('onPageReady', event => {
   }
 })
 
+barba.hooks.beforeEnter(() => {
+  createSplitTypes.cleanup()
+})
+
 barba.hooks.afterEnter(() => {
   cleanupCurrentModule()
-  createSplitTypes.cleanup()
   cleanupVideos()
 })
 
 barba.hooks.after(data => {
   const pageName = data.next.namespace
   lenis.scrollTo(0, { duration: 0, immediate: true })
+  createSplitTypes.init()
   initializeResponsiveVideos()
   updateCurrentNavLink()
   normalizeLogo(pageName)
   loadPageModule(pageName)
-  createSplitTypes.init()
   handleResponsiveElements()
   initCopyTextToClipboard()
 })

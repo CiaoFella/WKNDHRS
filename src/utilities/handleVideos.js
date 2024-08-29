@@ -26,13 +26,13 @@ function loadVideosForScreen(loadAttr, fallbackAttr) {
 
       if (isDesktop) {
         video.play().catch(error => {
-          console.warn('Video play interrupted:', error.message)
+          console.log('Video play interrupted:', error.message)
         })
       } else if (isMobile) {
         // On mobile, check for a user gesture before playing to avoid fullscreen issues
         video.addEventListener('click', function handlePlayOnClick() {
           video.play().catch(error => {
-            console.warn('Video play interrupted:', error.message)
+            console.log('Video play interrupted:', error.message)
           })
           video.removeEventListener('click', handlePlayOnClick)
         })
@@ -70,7 +70,7 @@ function handleLoadedData(event) {
   const video = event.target
   if (document.body.contains(video)) {
     video.play().catch(error => {
-      console.warn('Video play interrupted:', error.message)
+      console.log('Video play interrupted:', error.message)
     })
   }
 }

@@ -1,9 +1,12 @@
+import { cursor, magneticCursor } from './utilities/customCursor/customCursor.js'
 import { closeMenu } from './utilities/helper.js'
 import { proxy } from './utilities/pageReadyListener.js'
-import { bottomClipPath, fullClipPath, topClipPath } from './utilities/variables.js'
+import { fullClipPath, isDesktop } from './utilities/variables.js'
 import { gsap, barba, ScrollTrigger } from './vendor.js'
 
 gsap.registerPlugin(ScrollTrigger)
+
+const mm = gsap.matchMedia()
 
 barba.hooks.before(data => {
   data.next.container.classList.add('is-animating')
@@ -47,6 +50,12 @@ barba.init({
         const currentViewportHeight = window.innerHeight
         const enterTl = gsap.timeline({ defaults: { duration: 0.5, ease: 'power2.out' } })
         gsap.set(transitionBg, { display: 'block' })
+        mm.add(isDesktop, () => {
+          const customCursor = document.querySelector('.cb-cursor')
+          customCursor.remove()
+          cursor.init()
+          magneticCursor()
+        })
         enterTl
           .to(transitionBg, { scaleY: 0, transformOrigin: '50% 100%' }, 0)
           .fromTo(

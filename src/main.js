@@ -13,9 +13,13 @@ import createSplitTypes from './utilities/createSplitTypes.js'
 import lenis from './utilities/smoothScroll.js'
 import handlePageEnterAnimation from './animations/general/handlePageEnter.js'
 import { cleanupVideos, initializeResponsiveVideos } from './utilities/handleVideos.js'
+import { isDesktop } from './utilities/variables.js'
+import { cursor, magneticCursor } from './utilities/customCursor/customCursor.js'
 
 gsap.registerPlugin(ScrollTrigger)
 menu.init()
+
+const mm = gsap.matchMedia()
 
 let currentAnimationModule = null
 
@@ -63,6 +67,9 @@ pageLoader.init(initialPageName)
 createSplitTypes.init()
 handleResponsiveElements()
 initCopyTextToClipboard()
+console.log(cursor)
+cursor.init()
+magneticCursor()
 
 document.addEventListener('onPageReady', event => {
   if (event.detail === true) {
@@ -70,7 +77,7 @@ document.addEventListener('onPageReady', event => {
   }
 })
 
-barba.hooks.beforeEnter(() => {
+barba.hooks.afterEnter(() => {
   cleanupCurrentModule()
   createSplitTypes.cleanup()
   cleanupVideos()

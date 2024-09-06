@@ -15,6 +15,9 @@ export function initializeResponsiveVideos() {
 
 function loadVideosForScreen(loadAttr, fallbackAttr) {
   document.querySelectorAll('video').forEach(video => {
+    const isLoaded = video.dataset.loaded === 'true' // Check if the video has been loaded
+    if (isLoaded) return // Skip if already loaded
+
     const primarySrc = video.getAttribute(loadAttr)
     const fallbackSrc = video.getAttribute(fallbackAttr)
     const standardSrc = video.getAttribute('src')
@@ -29,7 +32,7 @@ function loadVideosForScreen(loadAttr, fallbackAttr) {
           console.log('Video play interrupted:', error.message)
         })
       } else if (isMobile) {
-        // On mobile, check for a user gesture before playing to avoid fullscreen issues
+        // On mobile, wait for user interaction to avoid autoplay issues
         video.addEventListener('click', function handlePlayOnClick() {
           video.play().catch(error => {
             console.log('Video play interrupted:', error.message)
@@ -37,6 +40,9 @@ function loadVideosForScreen(loadAttr, fallbackAttr) {
           video.removeEventListener('click', handlePlayOnClick)
         })
       }
+
+      // Mark video as loaded in the dataset
+      video.dataset.loaded = 'true'
     }
 
     if (primarySrc) {
@@ -49,20 +55,13 @@ function loadVideosForScreen(loadAttr, fallbackAttr) {
 
 export function cleanupVideos() {
   document.querySelectorAll('video').forEach(video => {
-    const hasDesktopSrc = video.hasAttribute('src-desktop')
-    const hasMobileSrc = video.hasAttribute('src-mobile')
+    if (!video.dataset.loaded) return // Only clean up loaded videos
 
-    if (hasDesktopSrc || hasMobileSrc) {
-      video.pause()
-      video.removeAttribute('src')
-      video.load()
-    }
+    // Optionally pause the video but don't unload
+    video.pause()
   })
 
-  document.querySelectorAll('video').forEach(video => {
-    video.removeEventListener('loadeddata', handleLoadedData)
-  })
-
+  // Clear media queries
   mm.clear()
 }
 

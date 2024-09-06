@@ -81,7 +81,6 @@ barba.hooks.beforeEnter(() => {
 
 barba.hooks.afterEnter(() => {
   cleanupCurrentModule()
-  cleanupVideos()
 })
 
 barba.hooks.after(data => {

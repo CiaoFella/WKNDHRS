@@ -14,6 +14,7 @@ import lenis from './utilities/smoothScroll.js'
 import handlePageEnterAnimation from './animations/general/handlePageEnter.js'
 import { cleanupVideos, initializeResponsiveVideos } from './utilities/handleVideos.js'
 import { cursor, magneticCursor } from './utilities/customCursor/customCursor.js'
+import { isDesktop } from './utilities/variables.js'
 
 gsap.registerPlugin(ScrollTrigger)
 menu.init()
@@ -66,8 +67,10 @@ initializeResponsiveVideos()
 pageLoader.init(initialPageName)
 handleResponsiveElements()
 initCopyTextToClipboard()
-cursor.init()
-magneticCursor()
+mm.add(isDesktop, () => {
+  cursor.init()
+  magneticCursor()
+})
 
 document.addEventListener('onPageReady', event => {
   if (event.detail === true) {

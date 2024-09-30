@@ -97,3 +97,8 @@ barba.hooks.after(data => {
   handleResponsiveElements()
   initCopyTextToClipboard()
 })
+
+const allScrollTrigger = ScrollTrigger.getAll()
+allScrollTrigger.forEach(trigger => {
+  trigger.normalizeScroll()
+})

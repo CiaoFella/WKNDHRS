@@ -54,8 +54,8 @@ function init() {
         revealTl
           .set(item, { pointerEvents: 'auto' })
           .fromTo([bg, overlay], { clipPath: bottomClipPath }, { clipPath: fullClipPath, ease: 'expo.inOut' }, '<')
-          .fromTo(headline, { yPercent: 100 }, { yPercent: 0, ease: 'expo.inOut' }, '<')
-          .fromTo(category, { yPercent: 100 }, { yPercent: 0, ease: 'expo.inOut' }, '<')
+          .fromTo(headline, { yPercent: 100 }, { yPercent: 0, ease: 'expo.inOut', willChange: 'transform' }, '<')
+          .fromTo(category, { yPercent: 100 }, { yPercent: 0, ease: 'expo.inOut', willChange: 'transform' }, '<')
           .fromTo(
             [boxImg, boxVideo, boxTitle],
             { clipPath: bottomClipPath },
@@ -68,8 +68,8 @@ function init() {
           const prevHeadline = items[index - 1].querySelector('[data-scroll-selected-work=headline]')
           const prevCategory = items[index - 1].querySelector('[data-scroll-selected-work=category]')
           revealTl
-            .fromTo(prevHeadline, { yPercent: 0 }, { yPercent: -100, ease: 'expo.inOut' }, '<')
-            .fromTo(prevCategory, { yPercent: 0 }, { yPercent: -100, ease: 'expo.inOut' }, '<')
+            .fromTo(prevHeadline, { yPercent: 0 }, { yPercent: -100, ease: 'expo.inOut', willChange: 'transform' }, '<')
+            .fromTo(prevCategory, { yPercent: 0 }, { yPercent: -100, ease: 'expo.inOut', willChange: 'transform' }, '<')
         }
 
         const triggerHeight = section.offsetHeight / items.length

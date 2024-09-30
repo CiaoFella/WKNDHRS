@@ -20,7 +20,7 @@ function init() {
 
       tl.set(section, { display: 'flex' })
 
-      tl.to(triggerItems, { yPercent: -100, duration: 0.5 })
+      tl.to(triggerItems, { yPercent: -100, duration: 0.5, willChange: 'transform' })
         .from(
           bg,
           {
@@ -30,7 +30,7 @@ function init() {
           },
           '<+0.2'
         )
-        .from(items, { yPercent: 125, stagger: 0.05 }, '<')
+        .from(items, { yPercent: 125, stagger: 0.05, willChange: 'transform' }, '<')
 
       trigger.addEventListener('click', () => {
         trigger.classList.toggle('is-active')

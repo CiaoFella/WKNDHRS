@@ -39,6 +39,7 @@ function init() {
           clipPath: fullClipPath,
           yPercent: 0,
           stagger: 0.1,
+          willChange: 'clip-path, transform',
         }
       )
 
@@ -69,6 +70,7 @@ function init() {
             {
               yPercent: 0,
               stagger: 0.1,
+              willChange: 'transform',
             },
             '<+0.2'
           )
@@ -77,6 +79,7 @@ function init() {
             numbers[index],
             {
               yPercent: 0,
+              willChange: 'transform',
             },
             '<'
           )
@@ -89,10 +92,15 @@ function init() {
             .fromTo(
               prevHeadlineLines,
               { yPercent: 0 },
-              { yPercent: -headlineYPercent, stagger: 0.1, immediateRender: false },
+              { yPercent: -headlineYPercent, stagger: 0.1, immediateRender: false, willChange: 'transform' },
               0
             )
-            .fromTo(prevNumber, { yPercent: 0 }, { yPercent: -100, immediateRender: false }, '<')
+            .fromTo(
+              prevNumber,
+              { yPercent: 0 },
+              { yPercent: -100, immediateRender: false, willChange: 'transform' },
+              '<'
+            )
         }
 
         gsap.set(headlines[0].querySelectorAll('.line'), { yPercent: 0 })

@@ -39,6 +39,7 @@ function init() {
         itemTl
           .from(headline, {
             yPercent: 150,
+            willChange: 'transform',
           })
           .fromTo(visual, { clipPath: leftClipPath }, { clipPath: fullClipPath }, '<')
 
@@ -51,6 +52,7 @@ function init() {
               yPercent: 0,
               duration: 1,
               stagger: { each: 0.05, ease: 'power1.in' },
+              willChange: 'transform, opacity',
             },
             '<'
           )
@@ -64,6 +66,7 @@ function init() {
               yPercent: 0,
               duration: 1,
               stagger: { each: 0.05, ease: 'power1.in' },
+              willChange: 'clip-path, transform',
             },
             '<'
           )
@@ -90,6 +93,7 @@ function init() {
             opacity: 1,
             yPercent: 0,
             stagger: { each: 0.1, ease: 'power4.in' },
+            willChange: 'transform, opacity',
           }
         ).fromTo(introButton, { opacity: 0 }, { opacity: 1, duration: 0.5 }, '<+0.1')
       })
@@ -102,6 +106,7 @@ function init() {
             clipPath: fullClipPath,
             yPercent: 0,
             stagger: { each: 0.1, ease: 'power4.in' },
+            willChange: 'clip-path, transform',
           }
         ).fromTo(introButton, { opacity: 0 }, { opacity: 1, duration: 0.5 }, '<+0.1')
       })

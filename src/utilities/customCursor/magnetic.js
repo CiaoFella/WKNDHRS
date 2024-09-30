@@ -9,6 +9,7 @@ export default class Magnetic {
         x: 0.2,
         s: 0.2,
         rs: 0.7,
+        willChange: 'transform',
       },
       options
     )

@@ -34,14 +34,14 @@ function init() {
         toggleActions: 'none play none reset',
       })
 
-      scrubTl.from(target, { yPercent: -50, ease: 'power2.out', duration: 1 })
+      scrubTl.from(target, { yPercent: -50, ease: 'power2.out', duration: 1, willChange: 'transform' })
 
       enterTl
-        .from(elements, { yPercent: 125, stagger: 0.025 })
+        .from(elements, { yPercent: 125, stagger: 0.025, willChange: 'transform' })
         .fromTo(
           paragraphSplit.lines,
           { yPercent: 50, clipPath: topClipPath },
-          { yPercent: 0, clipPath: fullClipPath, stagger: 0.1 },
+          { yPercent: 0, clipPath: fullClipPath, stagger: 0.1, willChange: 'clip-path, transform' },
           '<'
         )
         .fromTo(button, { opacity: 0 }, { opacity: 1 }, '<')

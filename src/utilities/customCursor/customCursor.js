@@ -28,6 +28,7 @@ export const magneticCursor = () => {
           x: 0.09, // vertical delta
           s: 0.35, // speed
           rs: 1, // release speed
+          willChange: 'transform',
         })
         break
       case 'light':
@@ -36,6 +37,7 @@ export const magneticCursor = () => {
           x: 0.3, // vertical delta
           s: 0.2, // speed
           rs: 1, // release speed
+          willChange: 'transform',
         })
         break
       case 'strong':
@@ -44,6 +46,7 @@ export const magneticCursor = () => {
           x: 0.5, // vertical delta
           s: 0.2, // speed
           rs: 1, // release speed
+          willChange: 'transform',
         })
         break
     }

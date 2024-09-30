@@ -149,6 +149,7 @@ export default class Cursor {
       overwrite: true,
       ease: this.options.ease,
       duration: this.visible ? duration || this.options.speed : 0,
+      willChange: 'transform',
     })
   }
 

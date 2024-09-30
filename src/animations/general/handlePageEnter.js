@@ -11,13 +11,24 @@ export default function handlePageEnterAnimation(currentPage) {
 
   if (titles && titles.length > 0) {
     mm.add(isTablet, () => {
-      tl.fromTo(titles, { opacity: 0, y: 50 }, { opacity: 1, y: 0, stagger: 0.1, duration: 1, ease: 'expo.out' })
+      tl.fromTo(
+        titles,
+        { opacity: 0, y: 50 },
+        { opacity: 1, y: 0, stagger: 0.1, duration: 1, ease: 'expo.out', willChange: 'transform, opacity' }
+      )
     })
     mm.add(isDesktop, () => {
       tl.fromTo(
         titles,
         { clipPath: topClipPath, y: 100 },
-        { clipPath: fullClipPath, y: 0, stagger: 0.1, duration: 1, ease: 'expo.out' }
+        {
+          clipPath: fullClipPath,
+          y: 0,
+          stagger: 0.1,
+          duration: 1,
+          ease: 'expo.out',
+          willChange: 'transform, clip-path',
+        }
       )
     })
   }
@@ -32,6 +43,7 @@ export default function handlePageEnterAnimation(currentPage) {
         {
           opacity: 1,
           y: 0,
+          willChange: 'transform, opacity',
           stagger: 0.1,
           duration: 1,
           onComplete: () => ScrollTrigger.refresh(),
@@ -46,6 +58,7 @@ export default function handlePageEnterAnimation(currentPage) {
         {
           clipPath: fullClipPath,
           y: 0,
+          willChange: 'transform, clip-path',
           stagger: 0.1,
           duration: 1,
           ease: 'expo.out',
@@ -67,16 +80,16 @@ export default function handlePageEnterAnimation(currentPage) {
         tl.to(elements, { y: 0, stagger: 0.05 }, '<+0.1').fromTo(
           paragraph.querySelectorAll('.line'),
           { opacity: 0, yPercent: 50 },
-          { opacity: 1, yPercent: 0, stagger: 0.1 },
+          { opacity: 1, yPercent: 0, stagger: 0.1, willChange: 'copacity, transform' },
           '<+0.5'
         )
       })
 
       mm.add(isDesktop, () => {
-        tl.to(elements, { y: 0, stagger: 0.05 }, '<+0.1').fromTo(
+        tl.to(elements, { y: 0, stagger: 0.05, willChange: 'transform' }, '<+0.1').fromTo(
           paragraph.querySelectorAll('.line'),
           { clipPath: topClipPath, yPercent: 50 },
-          { clipPath: fullClipPath, yPercent: 0, stagger: 0.1 },
+          { clipPath: fullClipPath, yPercent: 0, stagger: 0.1, willChange: 'clip-path, transform' },
           '<+0.5'
         )
       })

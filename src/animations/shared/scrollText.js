@@ -48,6 +48,7 @@ function init() {
                 duration: headlineDuration,
                 delay: headlineDelay,
                 stagger: 0.05,
+                willChange: 'transform, opacity',
               },
               '<+0.1'
             )
@@ -64,6 +65,7 @@ function init() {
                 delay: headlineDelay,
                 stagger: 0.05,
                 ease: 'expo.out',
+                willChange: 'clip-path, transform',
               },
               '<+0.1'
             )
@@ -90,6 +92,7 @@ function init() {
                 duration: textDuration,
                 delay: textDelay,
                 stagger: 0.05,
+                willChange: 'transform, opacity',
               },
               0
             )
@@ -106,6 +109,7 @@ function init() {
                 delay: textDelay,
                 stagger: 0.05,
                 ease: 'expo.out',
+                willChange: 'clip-path, transform',
               },
               0
             )

@@ -43,7 +43,7 @@ function init(namespace) {
         duration: duration,
       })
         .fromTo(hideLetters, { width: '100%' }, { width: '0%', duration: duration, ease: 'power4.out' }, '<-10%')
-        .to(element, { yPercent: -100, duration: 1 }, '>-15%')
+        .to(element, { yPercent: -100, duration: 1, willChange: 'transform' }, '>-15%')
         .call(
           () => {
             normalizeLogo(namespace)

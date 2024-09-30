@@ -30,6 +30,7 @@ function init() {
             {
               yPercent: 10,
               duration: 1,
+              willChange: 'transform',
             }
           )
         }, '<')

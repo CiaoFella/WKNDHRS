@@ -37,6 +37,7 @@ barba.init({
             transformOrigin: '50% 0%',
             force3D: true,
             duration: 1.5,
+            willChange: 'filter, transform',
             filter: 'grayscale(100%)',
             ease: 'power1.inOut',
           },

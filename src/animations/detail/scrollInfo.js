@@ -27,19 +27,19 @@ function init() {
       })
 
       mm.add(isTablet, () => {
-        tl.from(items, { yPercent: 110, stagger: 0.1 }).fromTo(
+        tl.from(items, { yPercent: 110, stagger: 0.1, willChange: 'transform' }).fromTo(
           paragraphSplits.lines,
           { opacity: 0, yPercent: 50 },
-          { opacity: 1, yPercent: 0, stagger: 0.05 },
+          { opacity: 1, yPercent: 0, stagger: 0.05, willChange: 'opacity, transform' },
           '<+0.25'
         )
       })
 
       mm.add(isDesktop, () => {
-        tl.from(items, { yPercent: 110, stagger: 0.1 }).fromTo(
+        tl.from(items, { yPercent: 110, stagger: 0.1, willChange: 'transform' }).fromTo(
           paragraphSplits.lines,
           { clipPath: topClipPath, yPercent: 50 },
-          { clipPath: fullClipPath, yPercent: 0, stagger: 0.05 },
+          { clipPath: fullClipPath, yPercent: 0, stagger: 0.05, willChange: 'clip-path, transform' },
           '<+0.25'
         )
       })

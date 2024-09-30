@@ -1,13 +1,13 @@
 // Projects Scroll Effect
 
-const items = document.querySelectorAll('.item');
+const items = document.querySelectorAll('.item')
 
 items.forEach((item, index) => {
   if (index !== 0) {
-    gsap.set(item, { yPercent: 100 });
-    gsap.set(item.querySelector('img'), { yPercent: -100 });
+    gsap.set(item, { yPercent: 100 })
+    gsap.set(item.querySelector('img'), { yPercent: -100 })
   }
-});
+})
 
 const scroll = () => {
   const tl = gsap.timeline({
@@ -19,12 +19,13 @@ const scroll = () => {
       pin: true,
     },
     defaults: { ease: 'none' },
-  });
+  })
 
   items.forEach((item, index) => {
     if (index !== items.length - 1) {
       tl.to(item, {
         yPercent: -100,
+        willChange: 'transform',
       })
         .to(
           item.querySelector('img'),
@@ -37,6 +38,7 @@ const scroll = () => {
           items[index + 1],
           {
             yPercent: 0,
+            willChange: 'transform',
           },
           '<'
         )
@@ -44,11 +46,12 @@ const scroll = () => {
           items[index + 1].querySelector('img'),
           {
             yPercent: 0,
+            willChange: 'transform',
           },
           '<'
-        );
+        )
     }
-  });
-};
+  })
+}
 
-scroll();
+scroll()

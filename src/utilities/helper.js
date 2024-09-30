@@ -121,8 +121,12 @@ export function initCopyTextToClipboard() {
       const copyTextTl = gsap.timeline({ defaults: { duration: 0.5, ease: 'expo.out' } })
 
       copyTextTl
-        .fromTo(copyTextTemp, { opacity: 0, yPercent: 50 }, { opacity: 1, yPercent: 0 })
-        .to(copyTextTemp, { opacity: 0, yPercent: -50, ease: 'expo.in' }, '>+1')
+        .fromTo(
+          copyTextTemp,
+          { opacity: 0, yPercent: 50 },
+          { opacity: 1, yPercent: 0, willChange: 'transform, opacity' }
+        )
+        .to(copyTextTemp, { opacity: 0, yPercent: -50, ease: 'expo.in', willChange: 'transform, opacity' }, '>+1')
         .call(() => copyTextTemp.remove(), [], '>+0.5')
     })
   })

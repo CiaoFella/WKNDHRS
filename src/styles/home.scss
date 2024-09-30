@@ -1,3 +1,7 @@
-// [data-scroll-selected-work=headline], [data-scroll-selected-work=category] {
-//     transform: translate(0, 100%);
-// }
+[data-scroll-selected-work=headline]:not(:first-of-type), [data-scroll-selected-work=category]:not(:first-of-type) {
+    transform: translate(0, 100%);
+}
+
+[data-scroll-selected-work=section]:not(.is-visible) [data-scroll-selected-work=list] {
+    opacity: 0;
+}

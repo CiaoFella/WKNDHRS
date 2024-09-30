@@ -46,9 +46,10 @@ function init() {
           defaults: { duration: 1 },
         })
 
-        // Animate headline away
-        revealTl.set(headline, { yPercent: 100 })
-        revealTl.set(category, { yPercent: 100 })
+        if (!section.classList.contains('is-visible')) {
+          section.classList.add('is-visible')
+        }
+
         revealTl.set(items, { pointerEvents: 'none' })
 
         revealTl

@@ -60,11 +60,11 @@ function loadPageModule(pageName) {
       if (typeof currentAnimationModule.init === 'function') {
         currentAnimationModule.init()
       } else {
-        console.warn(`Module for page ${pageName} does not have an init function.`)
+        // console.warn(`Module for page ${pageName} does not have an init function.`)
       }
     })
     .catch(err => {
-      console.error(`Failed to load module for page: ${pageName}`, err)
+      // console.error(`Failed to load module for page: ${pageName}`, err)
       currentAnimationModule = {} // Set to an empty object to avoid further errors
     })
 }

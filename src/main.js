@@ -16,6 +16,16 @@ import { cleanupVideos, initializeResponsiveVideos } from './utilities/handleVid
 import { cursor, magneticCursor } from './utilities/customCursor/customCursor.js'
 import { isDesktop } from './utilities/variables.js'
 
+function resetWebflow(data) {
+  let parser = new DOMParser()
+  let dom = parser.parseFromString(data.next.html, 'text/html')
+  let webflowPageId = $(dom).find('html').attr('data-wf-page')
+  $('html').attr('data-wf-page', webflowPageId)
+  window.Webflow && window.Webflow.destroy()
+  window.Webflow && window.Webflow.ready()
+  window.Webflow && window.Webflow.require('ix2').init()
+}
+
 gsap.registerPlugin(ScrollTrigger)
 menu.init()
 
@@ -82,7 +92,7 @@ barba.hooks.beforeEnter(() => {
   createSplitTypes.cleanup()
 })
 
-barba.hooks.afterEnter(() => {
+barba.hooks.afterEnter(data => {
   cleanupCurrentModule()
 })
 
@@ -96,6 +106,7 @@ barba.hooks.after(data => {
   loadPageModule(pageName)
   handleResponsiveElements()
   initCopyTextToClipboard()
+  resetWebflow(data)
 })
 
 const allScrollTrigger = ScrollTrigger.getAll()
